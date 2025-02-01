@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "skudatabase.domain", "skudatabase.domain\skudatabase.domain.csproj", "{69F063EA-7A07-4B22-B21B-74B154522B39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "skudatabase.Tests", "skudatabase.Tests\skudatabase.Tests.csproj", "{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{69F063EA-7A07-4B22-B21B-74B154522B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69F063EA-7A07-4B22-B21B-74B154522B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69F063EA-7A07-4B22-B21B-74B154522B39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

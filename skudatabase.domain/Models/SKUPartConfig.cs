@@ -7,6 +7,7 @@ namespace skudatabase.domain.Models
     /// </summary>
     public class SKUPartConfig
     {
+        private int _length = 0;
         /// <summary>
         /// Gets or sets the unique identifier for the SKU part configuration.
         /// </summary>
@@ -20,12 +21,31 @@ namespace skudatabase.domain.Models
         /// <summary>
         /// Gets or sets the length of the SKU part.
         /// </summary>
-        public int Length { get; set; }
+        public int Length
+        {
+            get
+            {
+                return _length;
+            }
+            set
+            {
+                if (value < 1)
+                {
+                    throw new ArgumentException("Length must be greater than 0");
+                }
+                if (value > 5)
+                {
+                    _length = 5;
+                    throw new ArgumentException("Length must be lesser than 5");
+                }
+                _length = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the generic name of the SKU part.
         /// </summary>
-        public string GenericName { get; set; }= string.Empty;
+        public string GenericName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets a value indicating whether the SKU part is alphanumeric.
@@ -51,5 +71,18 @@ namespace skudatabase.domain.Models
         /// Gets or sets the SKU identifier associated with this configuration.
         /// </summary>
         public int SKUId { get; set; }
+
+
+        public string GetDefaultGenericCode()
+        {
+            if (this.IsAlphaNumeric)
+            {
+                return new string('Z', this.Length);
+            }
+            else
+            {
+                return new string('9', this.Length);
+            }
+        }
     }
 }

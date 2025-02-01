@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using skudatabase.domain.DataLayer;
 using skudatabase.domain.Models;
 
@@ -17,7 +18,22 @@ namespace skudatabase.domain.Infrastructure
         public GenericRepository(InMemoryDbContext context)
         {
             _context = context;
-            _dbSet = _context.Set<T>();
+            _dbSet = GetDbSet()!;
+        }
+        private DbSet<T>? GetDbSet()
+        {
+            if (typeof(T) == typeof(SKU))
+                return _context.SKUs as DbSet<T>;
+            if (typeof(T) == typeof(SKUPartConfig))
+                return _context.SKUPartConfigs as DbSet<T>;
+            if (typeof(T) == typeof(SKUPartValues))
+                return _context.SKUPartValues as DbSet<T>;
+            if (typeof(T) == typeof(SKUConfig))
+                return _context.SKUConfigs as DbSet<T>;
+            if (typeof(T) == typeof(SKUConfigSequence))
+                return _context.SKUConfigSequences as DbSet<T>;
+
+            throw new ArgumentException("Invalid type");
         }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
@@ -28,7 +44,7 @@ namespace skudatabase.domain.Infrastructure
         public virtual async Task<T> GetByIdAsync(int id)
         {
             T? entity = await _dbSet.FindAsync(id);
-            if(entity == null)
+            if (entity == null)
                 throw new KeyNotFoundException();
 
             return entity;
@@ -37,6 +53,7 @@ namespace skudatabase.domain.Infrastructure
         public virtual async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public virtual async Task UpdateAsync(T entity)
@@ -47,9 +64,9 @@ namespace skudatabase.domain.Infrastructure
         }
 
         public virtual async Task DeleteAsync(int id)
-        {            
+        {
             T? entity = await _dbSet.FindAsync(id);
-            if(entity == null)
+            if (entity == null)
                 throw new KeyNotFoundException();
             if (entity != null)
             {

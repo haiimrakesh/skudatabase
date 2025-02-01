@@ -9,6 +9,12 @@ namespace skudatabase.domain.DataLayer
         public InMemoryDbContext(DbContextOptions<InMemoryDbContext> options)
             : base(options)
         {
+            SKUs = Set<SKU>();
+            SKUPartValues = Set<SKUPartValues>();
+            SKUConfigs = Set<SKUConfig>();
+            SKUConfigSequences = Set<SKUConfigSequence>();
+            SKUPartConfigs = Set<SKUPartConfig>();
+
         }
 
         public DbSet<SKU> SKUs { get; set; }
