@@ -18,22 +18,7 @@ namespace skudatabase.domain.Infrastructure
         public GenericRepository(InMemoryDbContext context)
         {
             _context = context;
-            _dbSet = GetDbSet()!;
-        }
-        private DbSet<T>? GetDbSet()
-        {
-            if (typeof(T) == typeof(SKU))
-                return _context.SKUs as DbSet<T>;
-            if (typeof(T) == typeof(SKUPartConfig))
-                return _context.SKUPartConfigs as DbSet<T>;
-            if (typeof(T) == typeof(SKUPartValues))
-                return _context.SKUPartValues as DbSet<T>;
-            if (typeof(T) == typeof(SKUConfig))
-                return _context.SKUConfigs as DbSet<T>;
-            if (typeof(T) == typeof(SKUConfigSequence))
-                return _context.SKUConfigSequences as DbSet<T>;
-
-            throw new ArgumentException("Invalid type");
+            _dbSet = context.GetDbSet<T>()!;
         }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
@@ -53,7 +38,6 @@ namespace skudatabase.domain.Infrastructure
         public virtual async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
         }
 
         public virtual async Task UpdateAsync(T entity)

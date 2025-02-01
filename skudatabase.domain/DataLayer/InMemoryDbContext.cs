@@ -17,6 +17,22 @@ namespace skudatabase.domain.DataLayer
 
         }
 
+        public DbSet<T>? GetDbSet<T>() where T : class
+        {
+            if (typeof(T) == typeof(SKU))
+                return SKUs as DbSet<T>;
+            if (typeof(T) == typeof(SKUPartConfig))
+                return SKUPartConfigs as DbSet<T>;
+            if (typeof(T) == typeof(SKUPartValues))
+                return SKUPartValues as DbSet<T>;
+            if (typeof(T) == typeof(SKUConfig))
+                return SKUConfigs as DbSet<T>;
+            if (typeof(T) == typeof(SKUConfigSequence))
+                return SKUConfigSequences as DbSet<T>;
+
+            throw new ArgumentException("Invalid type");
+        }
+
         public DbSet<SKU> SKUs { get; set; }
         public DbSet<SKUPartValues> SKUPartValues { get; set; }
         public DbSet<SKUConfig> SKUConfigs { get; set; }
