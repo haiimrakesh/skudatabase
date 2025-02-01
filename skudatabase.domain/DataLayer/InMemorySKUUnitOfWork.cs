@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using skudatabase.domain.Infrastructure;
+using skudatabase.domain.Models;
+
+namespace skudatabase.domain.DataLayer
+{
+    public class InMemorySKUUnitOfWork : ISKUUnitOfWork
+    {
+        private readonly InMemoryDbContext _context;
+        private bool _disposed;
+
+        public InMemorySKUUnitOfWork(InMemoryDbContext context)
+        {
+            _context = context;
+            SKURepository = new GenericRepository<SKU>(_context);
+            SKUConfigRepository = new GenericRepository<SKUConfig>(_context);
+            SKUConfigSequenceRepository = new GenericRepository<SKUConfigSequence>(_context);
+            SKUPartConfigRepository = new GenericRepository<SKUPartConfig>(_context);
+            SKUPartValuesRepository = new GenericRepository<SKUPartValues>(_context);
+        }
+
+        public IRepository<SKU> SKURepository{ get; private set; }
+
+        public IRepository<SKUConfig> SKUConfigRepository{ get; private set; }
+
+        public IRepository<SKUConfigSequence> SKUConfigSequenceRepository{ get; private set; }
+
+        public IRepository<SKUPartConfig> SKUPartConfigRepository{ get; private set; }
+
+        public IRepository<SKUPartValues> SKUPartValuesRepository{ get; private set; }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            // In-memory implementation, so just return 0 changes
+            return await Task.FromResult(0);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Dispose managed resources here
+                    _context.Dispose();
+                }
+
+                // Dispose unmanaged resources here
+                _disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+    }
+}
