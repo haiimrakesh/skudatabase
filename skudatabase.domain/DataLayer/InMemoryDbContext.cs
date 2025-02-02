@@ -66,5 +66,6 @@ namespace skudatabase.domain.DataLayer
 
             // Configure your entity relationships and constraints here
         }
+
     }
 }

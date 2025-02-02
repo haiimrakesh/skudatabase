@@ -30,7 +30,7 @@ namespace skudatabase.domain.Infrastructure
         {
             T? entity = await _dbSet.FindAsync(id);
             if (entity == null)
-                throw new KeyNotFoundException();
+                throw new InvalidOperationException("Entity not found.");
 
             return entity;
         }
@@ -59,9 +59,10 @@ namespace skudatabase.domain.Infrastructure
             }
         }
 
-        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<IEnumerable<T>> FindAsync(Func<T, bool> predicate)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            List<T>? Result = _dbSet.Where(predicate).ToList();
+            return await Task.FromResult(Result) ?? throw new InvalidOperationException("Entity not found.");
         }
         public async Task DeleteAsync(T entity)
         {

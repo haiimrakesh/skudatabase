@@ -70,7 +70,12 @@ namespace skudatabase.domain.Models
         /// <summary>
         /// Gets or sets the SKU identifier associated with this configuration.
         /// </summary>
-        public int SKUId { get; set; }
+        public int SKUConfigId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the SKU configuration.
+        /// </summary>
+        public SKUConfigStatusEnum Status { get; set; } = SKUConfigStatusEnum.Draft;
 
 
         public string GetDefaultGenericCode()

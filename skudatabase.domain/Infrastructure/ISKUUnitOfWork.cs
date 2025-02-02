@@ -10,7 +10,7 @@ namespace skudatabase.domain.Infrastructure
         IRepository<SKUConfig> SKUConfigRepository { get; }
         IRepository<SKUConfigSequence> SKUConfigSequenceRepository { get; }
         IRepository<SKUPartConfig> SKUPartConfigRepository { get; }
-        IRepository<SKUPartValues> SKUPartValuesRepository { get; }
+        ISKUPartValuesRepository SKUPartValuesRepository { get; }
 
         Task<int> SaveChangesAsync();
     }

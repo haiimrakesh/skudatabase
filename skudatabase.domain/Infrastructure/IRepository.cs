@@ -29,7 +29,7 @@ namespace skudatabase.domain.Infrastructure
         /// </summary>
         /// <param name="predicate">The predicate to filter entities.</param>
         /// <returns>A collection of entities that match the predicate.</returns>
-        Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> FindAsync(Func<TEntity, bool> predicate);
 
         /// <summary>
         /// Adds a new entity.

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using skudatabase.domain.Models;
 
 namespace skudatabase.domain.Infrastructure;
@@ -9,27 +10,27 @@ public interface ISKUDbContext
     /// <summary>
     /// Gets or sets the DbSet of SKU entities.
     /// </summary>
-    IQueryable<SKU> SKUs { get;  }
+    IQueryable<SKU> SKUs { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUPartConfig entities.
     /// </summary>
-    IQueryable<SKUPartConfig> SKUPartConfigs { get;  }
+    IQueryable<SKUPartConfig> SKUPartConfigs { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUPartValues entities.
     /// </summary>
-    IQueryable<SKUPartValues> SKUPartValues { get;  }
+    IQueryable<SKUPartValues> SKUPartValues { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUConfig entities.
     /// </summary>
-    IQueryable<SKUConfig> SKUConfigs { get;  }
+    IQueryable<SKUConfig> SKUConfigs { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUConfigSequence entities.
     /// </summary>
-    IQueryable<SKUConfigSequence> SKUConfigSequences { get;  }
+    IQueryable<SKUConfigSequence> SKUConfigSequences { get; }
 
     /// <summary>
     /// Asynchronously saves all changes made in this context to the database.
