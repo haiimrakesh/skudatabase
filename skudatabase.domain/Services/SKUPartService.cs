@@ -116,7 +116,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         var sKUPartConfig = await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(sKUPartValues.SKUPartConfigId);
         if (sKUPartConfig.Status == SKUConfigStatusEnum.Active)
         {
-            throw new InvalidOperationException("Cannot delete an active SKUPartConfig.");
+            throw new InvalidOperationException("Cannot delete an active SKUPartValue.");
         }
 
         // Remove the SKUPartValues from the repository
