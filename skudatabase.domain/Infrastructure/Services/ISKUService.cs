@@ -1,6 +1,6 @@
 using skudatabase.domain.Models;
 
-namespace skudatabase.domain.Infrastructure;
+namespace skudatabase.domain.Infrastructure.Services;
 
 /// <summary>
 /// Interface for SKU service operations.

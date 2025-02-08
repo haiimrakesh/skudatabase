@@ -2,7 +2,7 @@ using System.Net;
 using skudatabase.domain.Infrastructure;
 using skudatabase.domain.Models;
 
-namespace skudatabase.domain.DataLayer;
+namespace skudatabase.domain.Infrastructure.UnitOfWork;
 
 public static class ISKUUnitOfWorkExtenstions
 {

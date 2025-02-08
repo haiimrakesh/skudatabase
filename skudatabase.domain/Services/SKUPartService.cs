@@ -1,7 +1,8 @@
 namespace skudatabase.domain.Services;
 
 using System;
-using skudatabase.domain.Infrastructure;
+using skudatabase.domain.Infrastructure.Services;
+using skudatabase.domain.Infrastructure.UnitOfWork;
 using skudatabase.domain.Models;
 
 public class SKUPartConfigService : ISKUPartConfigService

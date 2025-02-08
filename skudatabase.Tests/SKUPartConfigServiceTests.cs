@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using skudatabase.domain.DataLayer;
-using skudatabase.domain.Infrastructure;
+using skudatabase.domain.Infrastructure.UnitOfWork;
 using skudatabase.domain.Models;
 using skudatabase.domain.Services;
 using Xunit;

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using skudatabase.domain.Infrastructure;
+using skudatabase.domain.Infrastructure.Repositories;
 using skudatabase.domain.Models;
 
 namespace skudatabase.domain.DataLayer

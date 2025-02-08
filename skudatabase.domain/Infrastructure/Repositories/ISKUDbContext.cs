@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using skudatabase.domain.Models;
 
-namespace skudatabase.domain.Infrastructure;
+namespace skudatabase.domain.Infrastructure.Repositories;
 /// <summary>
 /// Represents the database context interface for SKU-related entities.
 /// </summary>

@@ -1,4 +1,5 @@
-using skudatabase.domain.Infrastructure;
+using skudatabase.domain.Infrastructure.Services;
+using skudatabase.domain.Infrastructure.UnitOfWork;
 using skudatabase.domain.Models;
 
 namespace skudatabase.domain.Services;
@@ -63,7 +64,7 @@ public class SKUService : ISKUService
 
     public async Task ReorderSKUSequence(IEnumerable<SKUConfigSequence> skuSequence)
     {
-        foreach(var skuseqItem in skuSequence)
+        foreach (var skuseqItem in skuSequence)
         {
             await _unitOfWork.SKUConfigSequenceRepository.UpdateAsync(skuseqItem);
         }

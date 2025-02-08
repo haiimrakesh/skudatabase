@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using skudatabase.domain.Infrastructure;
+using skudatabase.domain.Infrastructure.UnitOfWork;
+using skudatabase.domain.Infrastructure.Repositories;
 using skudatabase.domain.Models;
 
 namespace skudatabase.domain.DataLayer
