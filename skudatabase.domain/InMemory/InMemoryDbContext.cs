@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using skudatabase.domain.Infrastructure.Repositories;
 using skudatabase.domain.Models;
 
-namespace skudatabase.domain.DataLayer
+namespace skudatabase.domain.InMemory
 {
     public class InMemoryDbContext : DbContext, ISKUDbContext
     {

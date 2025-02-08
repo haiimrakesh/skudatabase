@@ -8,6 +8,17 @@ namespace skudatabase.domain.Infrastructure.Services;
 public interface ISKUPartConfigService
 {
     /// <summary>
+    /// Gets a SKUPartConfig by ID.
+    /// </summary>
+    /// <param name="id">The ID of the SKUPartConfig to retrieve.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the SKUPartConfig.</returns>
+    Task<SKUPartConfig> GetSKUPartConfigById(int id);
+    /// <summary>
+    /// Gets a SKUPartConfigs
+    /// </summary>
+    /// <returns></returns>
+    Task<IEnumerable<SKUPartConfig>> GetAllSKUPartConfigs();
+    /// <summary>
     /// Adds a new SKUPartConfig and its default SKUPartValues.
     /// </summary>
     /// <param name="sKUPartConfig">The SKUPartConfig to add.</param>

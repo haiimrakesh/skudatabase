@@ -8,6 +8,12 @@ namespace skudatabase.domain.Infrastructure.Repositories;
 public interface ISKUDbContext
 {
     /// <summary>
+    /// Gets the DbSet of entities of the given type.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    DbSet<T>? GetDbSet<T>() where T : class;
+    /// <summary>
     /// Gets or sets the DbSet of SKU entities.
     /// </summary>
     IQueryable<SKU> SKUs { get; }

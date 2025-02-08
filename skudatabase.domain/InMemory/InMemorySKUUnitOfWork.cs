@@ -5,7 +5,7 @@ using skudatabase.domain.Infrastructure.UnitOfWork;
 using skudatabase.domain.Infrastructure.Repositories;
 using skudatabase.domain.Models;
 
-namespace skudatabase.domain.DataLayer
+namespace skudatabase.domain.InMemory
 {
     public class InMemorySKUUnitOfWork : ISKUUnitOfWork
     {
@@ -19,7 +19,7 @@ namespace skudatabase.domain.DataLayer
             SKUConfigRepository = new GenericRepository<SKUConfig>(_context);
             SKUConfigSequenceRepository = new GenericRepository<SKUConfigSequence>(_context);
             SKUPartConfigRepository = new GenericRepository<SKUPartConfig>(_context);
-            SKUPartValuesRepository = new SKUPartValuesRepository(_context);
+            SKUPartValuesRepository = new InMemorySKUPartValuesRepository(_context);
         }
 
         public IRepository<SKU> SKURepository { get; private set; }

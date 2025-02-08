@@ -1,21 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using skudatabase.domain.DataLayer;
-using skudatabase.domain.Models;
 
 namespace skudatabase.domain.Infrastructure.Repositories;
 
 public class GenericRepository<T> : IRepository<T> where T : class
 {
-    protected readonly InMemoryDbContext _context;
+    protected readonly ISKUDbContext _context;
     protected readonly DbSet<T> _dbSet;
 
-    public GenericRepository(InMemoryDbContext context)
+    public GenericRepository(ISKUDbContext context)
     {
         _context = context;
         _dbSet = context.GetDbSet<T>()!;
@@ -43,7 +35,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
     public virtual async Task UpdateAsync(T entity)
     {
         _dbSet.Attach(entity);
-        _context.Entry(entity).State = EntityState.Modified;
+        (_context as DbContext)!.Entry(entity).State = EntityState.Modified;
         await Task.FromResult(0);
     }
 

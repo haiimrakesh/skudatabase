@@ -1,6 +1,7 @@
 namespace skudatabase.domain.Services;
 
 using System;
+using System.Collections.Generic;
 using skudatabase.domain.Infrastructure.Services;
 using skudatabase.domain.Infrastructure.UnitOfWork;
 using skudatabase.domain.Models;
@@ -123,5 +124,15 @@ public class SKUPartConfigService : ISKUPartConfigService
         // Remove the SKUPartValues from the repository
         await _unitOfWork.SKUPartValuesRepository.DeleteAsync(sKUPartValues);
         await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<SKUPartConfig>> GetAllSKUPartConfigs()
+    {
+        return await _unitOfWork.SKUPartConfigRepository.GetAllAsync();
+    }
+
+    public async Task<SKUPartConfig> GetSKUPartConfigById(int id)
+    {
+        return await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(id);
     }
 }
