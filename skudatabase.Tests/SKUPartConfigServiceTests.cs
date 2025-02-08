@@ -98,18 +98,7 @@ namespace skudatabase.Tests
         {
             // Arrange
             var unitOfWork = GetInMemoryUnitOfWork();
-            var sKUPartConfig = new SKUPartConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Length = 3,
-                GenericName = "Test",
-                IsAlphaNumeric = true,
-                IsCaseSensitive = true,
-                SKUConfigId = 1,
-                Status = SKUConfigStatusEnum.Active
-            };
-            await unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
+            await unitOfWork.AddTestData_SKUConfig("Test", SKUConfigStatusEnum.Active);
             await unitOfWork.SaveChangesAsync();
             var service = new SKUPartConfigService(unitOfWork);
 
@@ -122,27 +111,8 @@ namespace skudatabase.Tests
         {
             // Arrange
             var unitOfWork = GetInMemoryUnitOfWork();
-            var sKUPartConfig = new SKUPartConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Length = 3,
-                GenericName = "Test",
-                IsAlphaNumeric = true,
-                IsCaseSensitive = true,
-                SKUConfigId = 1,
-                Status = SKUConfigStatusEnum.Draft
-            };
-            var sKUPartValues = new SKUPartValues
-            {
-                Id = 1,
-                SKUPartConfigId = 1,
-                Name = "TestValue",
-                UniqueCode = "TestCode"
-            };
-            await unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
-            await unitOfWork.SaveChangesAsync();
-            await unitOfWork.SKUPartValuesRepository.AddAsync(sKUPartValues);
+            await unitOfWork.AddTestData_SKUPartConfig();
+            await unitOfWork.AddTestData_SKUPartValues();
             await unitOfWork.SaveChangesAsync();
             var service = new SKUPartConfigService(unitOfWork);
 
@@ -155,24 +125,8 @@ namespace skudatabase.Tests
         {
             // Arrange
             var unitOfWork = GetInMemoryUnitOfWork();
-            var sKUPartConfig = new SKUPartConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Length = 3,
-                GenericName = "Test",
-                IsAlphaNumeric = true,
-                IsCaseSensitive = true,
-                SKUConfigId = 1,
-                Status = SKUConfigStatusEnum.Active
-            };
-            var sKUConfigSequence = new SKUConfigSequence
-            {
-                Id = 1,
-                SKUPartConfigId = 1
-            };
-            await unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
-            await unitOfWork.SKUConfigSequenceRepository.AddAsync(sKUConfigSequence);
+            await unitOfWork.AddTestData_SKUConfig();
+            await unitOfWork.AddTestData_SKUConfigSequence();
             await unitOfWork.SaveChangesAsync();
             var service = new SKUPartConfigService(unitOfWork);
 
@@ -185,18 +139,7 @@ namespace skudatabase.Tests
         {
             // Arrange
             var unitOfWork = GetInMemoryUnitOfWork();
-            var sKUPartConfig = new SKUPartConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Length = 3,
-                GenericName = "Test",
-                IsAlphaNumeric = true,
-                IsCaseSensitive = true,
-                SKUConfigId = 1,
-                Status = SKUConfigStatusEnum.Draft
-            };
-            await unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
+            await unitOfWork.AddTestData_SKUPartConfig();
             await unitOfWork.SaveChangesAsync();
             var sKUPartValues = new SKUPartValues
             {
@@ -219,18 +162,7 @@ namespace skudatabase.Tests
         {
             // Arrange
             var unitOfWork = GetInMemoryUnitOfWork();
-            var sKUPartConfig = new SKUPartConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Length = 3,
-                GenericName = "Test",
-                IsAlphaNumeric = true,
-                IsCaseSensitive = true,
-                SKUConfigId = 1,
-                Status = SKUConfigStatusEnum.Active
-            };
-            await unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
+            await unitOfWork.AddTestData_SKUConfig("Test", SKUConfigStatusEnum.Active);
             await unitOfWork.SaveChangesAsync();
             var sKUPartValues = new SKUPartValues
             {
@@ -250,35 +182,9 @@ namespace skudatabase.Tests
         {
             // Arrange
             var unitOfWork = GetInMemoryUnitOfWork();
-            var SMUConfig = new SKUConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Status = SKUConfigStatusEnum.Draft
-            };
-            await unitOfWork.SKUConfigRepository.AddAsync(SMUConfig);
-            await unitOfWork.SaveChangesAsync();
-            var sKUPartConfig = new SKUPartConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Length = 3,
-                GenericName = "Test",
-                IsAlphaNumeric = true,
-                IsCaseSensitive = true,
-                SKUConfigId = 1,
-                Status = SKUConfigStatusEnum.Draft
-            };
-            await unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
-            await unitOfWork.SaveChangesAsync();
-            var sKUPartValues = new SKUPartValues
-            {
-                Id = 1,
-                SKUPartConfigId = 1,
-                Name = "TestValue",
-                UniqueCode = "TestCode"
-            };
-            await unitOfWork.SKUPartValuesRepository.AddAsync(sKUPartValues);
+            await unitOfWork.AddTestData_SKUConfig();
+            await unitOfWork.AddTestData_SKUPartConfig();
+            await unitOfWork.AddTestData_SKUPartValues("TestValue", "TestCode");
             await unitOfWork.SaveChangesAsync();
             var service = new SKUPartConfigService(unitOfWork);
             var newSKUPartValues = new SKUPartValues
@@ -298,27 +204,8 @@ namespace skudatabase.Tests
         {
             // Arrange
             var unitOfWork = GetInMemoryUnitOfWork();
-            var sKUPartConfig = new SKUPartConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Length = 3,
-                GenericName = "Test",
-                IsAlphaNumeric = true,
-                IsCaseSensitive = true,
-                SKUConfigId = 1,
-                Status = SKUConfigStatusEnum.Draft
-            };
-            await unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
-            await unitOfWork.SaveChangesAsync();
-            var sKUPartValues = new SKUPartValues
-            {
-                Id = 1,
-                SKUPartConfigId = 1,
-                Name = "TestValue",
-                UniqueCode = "TestCode"
-            };
-            await unitOfWork.SKUPartValuesRepository.AddAsync(sKUPartValues);
+            await unitOfWork.AddTestData_SKUPartConfig();
+            await unitOfWork.AddTestData_SKUPartValues();
             await unitOfWork.SaveChangesAsync();
             var service = new SKUPartConfigService(unitOfWork);
 
@@ -345,35 +232,9 @@ namespace skudatabase.Tests
         {
             // Arrange
             var unitOfWork = GetInMemoryUnitOfWork();
-            var sKUPartConfig = new SKUPartConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Length = 3,
-                GenericName = "Test",
-                IsAlphaNumeric = true,
-                IsCaseSensitive = true,
-                SKUConfigId = 1,
-                Status = SKUConfigStatusEnum.Active
-            };
-            await unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
-            await unitOfWork.SaveChangesAsync();
-            var SKUConfig = new SKUConfig
-            {
-                Id = 1,
-                Name = "Test",
-                Status = SKUConfigStatusEnum.Active
-            };
-            await unitOfWork.SKUConfigRepository.AddAsync(SKUConfig);
-            await unitOfWork.SaveChangesAsync();
-            var sKUPartValues = new SKUPartValues
-            {
-                Id = 1,
-                SKUPartConfigId = 1,
-                Name = "TestValue",
-                UniqueCode = "TestCode"
-            };
-            await unitOfWork.SKUPartValuesRepository.AddAsync(sKUPartValues);
+            await unitOfWork.AddTestData_SKUPartConfig(SKUConfigStatusEnum.Active);
+            await unitOfWork.AddTestData_SKUPartValues();
+            await unitOfWork.AddTestData_SKUConfig("Test", SKUConfigStatusEnum.Active);
             await unitOfWork.SaveChangesAsync();
             var service = new SKUPartConfigService(unitOfWork);
 
