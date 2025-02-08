@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "skudatabase.domain", "skuda
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "skudatabase.Tests", "skudatabase.Tests\skudatabase.Tests.csproj", "{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "skudatabase.MVC.Web", "skudatabase.MVC.Web\skudatabase.MVC.Web.csproj", "{25FCB7A5-9B69-4582-9A93-ACE724DEE484}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67AAE0D6-B44E-4307-AAEB-EEAB10A1FB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FCB7A5-9B69-4582-9A93-ACE724DEE484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25FCB7A5-9B69-4582-9A93-ACE724DEE484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25FCB7A5-9B69-4582-9A93-ACE724DEE484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25FCB7A5-9B69-4582-9A93-ACE724DEE484}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
