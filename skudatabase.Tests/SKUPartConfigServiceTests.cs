@@ -1,9 +1,6 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using skudatabase.domain.DataLayer;
 using skudatabase.domain.Infrastructure.UnitOfWork;
+using skudatabase.domain.InMemory;
 using skudatabase.domain.Models;
 using skudatabase.domain.Services;
 using Xunit;
@@ -13,6 +10,15 @@ namespace skudatabase.Tests
     public class SKUPartServiceTests
     {
         private ISKUUnitOfWork GetInMemoryUnitOfWork()
+        {
+            var options = new DbContextOptionsBuilder<InMemoryDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+            var context = new InMemoryDbContext(options);
+            return new InMemorySKUUnitOfWork(context);
+        }
+
+        public static ISKUUnitOfWork GetInMemoryUnitOfWorkStatic()
         {
             var options = new DbContextOptionsBuilder<InMemoryDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())

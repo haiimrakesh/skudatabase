@@ -18,6 +18,11 @@ namespace skudatabase.domain.Models
         public int SKUPartConfigId { get; set; }
 
         /// <summary>
+        /// Gets or sets the identifier for the SKU configuration.
+        /// </summary>
+        public int SKUConfigId { get; set; }
+
+        /// <summary>
         /// Gets or sets the sequence number for the SKU configuration.
         /// </summary>
         public int Sequence { get; set; }

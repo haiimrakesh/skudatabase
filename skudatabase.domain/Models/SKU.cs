@@ -20,7 +20,7 @@ namespace skudatabase.domain.Models
         /// <summary>
         /// Gets or sets the image associated with the SKU.
         /// </summary>
-        public string Image { get; set; } = null!;
+        public byte[] Image { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the identifier for the skill configuration associated with the SKU.

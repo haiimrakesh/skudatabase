@@ -18,11 +18,16 @@ namespace skudatabase.domain.Models
         /// <summary>
         /// Gets or sets the length of the SKU configuration.
         /// </summary>
-        public double Length { get; set; }
+        public int Length { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the SKU configuration.
         /// </summary>
         public SKUConfigStatusEnum Status { get; set; } = SKUConfigStatusEnum.Draft;
+
+        /// <summary>
+        /// Description of the SKU
+        /// </summary>
+        public string Description { get; set; } = null!;
     }
 }

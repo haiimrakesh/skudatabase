@@ -73,11 +73,19 @@ namespace skudatabase.domain.Models
         public int SKUConfigId { get; set; }
 
         /// <summary>
+        /// Indicates if a Hyphen is included at the end of the SKU Part entry. Increases the length by 1.
+        /// </summary>
+        public bool IncludeSpacerAtTheEnd { get; set; }
+
+        /// <summary>
         /// Gets or sets the width of the SKU configuration.
         /// </summary>
         public SKUConfigStatusEnum Status { get; set; } = SKUConfigStatusEnum.Draft;
 
-
+        /// <summary>
+        /// Description of the SKU Part.
+        /// </summary>
+        public string Description { get; set; } = null!;
         public string GetDefaultGenericCode()
         {
             if (this.IsAlphaNumeric)
