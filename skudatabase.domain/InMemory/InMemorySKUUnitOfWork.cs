@@ -18,7 +18,7 @@ namespace skudatabase.domain.InMemory
             SKURepository = new GenericRepository<SKU>(_context);
             SKUConfigRepository = new GenericRepository<SKUConfig>(_context);
             SKUConfigSequenceRepository = new GenericRepository<SKUConfigSequence>(_context);
-            SKUPartConfigRepository = new GenericRepository<SKUPartConfig>(_context);
+            SKUPartConfigRepository = new InMemorySKUPartConfigRepository(_context);
             SKUPartValuesRepository = new InMemorySKUPartValuesRepository(_context);
         }
 
@@ -28,7 +28,7 @@ namespace skudatabase.domain.InMemory
 
         public IRepository<SKUConfigSequence> SKUConfigSequenceRepository { get; private set; }
 
-        public IRepository<SKUPartConfig> SKUPartConfigRepository { get; private set; }
+        public ISKUPartConfigRepository SKUPartConfigRepository { get; private set; }
 
         public ISKUPartValuesRepository SKUPartValuesRepository { get; private set; }
 
