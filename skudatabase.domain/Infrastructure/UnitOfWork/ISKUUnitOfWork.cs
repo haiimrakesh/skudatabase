@@ -10,7 +10,7 @@ public interface ISKUUnitOfWork : IDisposable
     IRepository<SKU> SKURepository { get; }
     IRepository<SKUConfig> SKUConfigRepository { get; }
     IRepository<SKUConfigSequence> SKUConfigSequenceRepository { get; }
-    IRepository<SKUPartConfig> SKUPartConfigRepository { get; }
+    ISKUPartConfigRepository SKUPartConfigRepository { get; }
     ISKUPartValuesRepository SKUPartValuesRepository { get; }
 
     Task<int> SaveChangesAsync();
