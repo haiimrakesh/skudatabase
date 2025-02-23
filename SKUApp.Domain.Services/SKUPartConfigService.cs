@@ -14,7 +14,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<SKUPartConfig>> AddSKUPartConfig(SKUPartConfig sKUPartConfig)
+    public async Task<Result<SKUPartConfig>> AddSKUPartConfigAsync(SKUPartConfig sKUPartConfig)
     {
         try
         {
@@ -53,7 +53,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartConfig>> DeleteSKUPartConfig(int id)
+    public async Task<Result<SKUPartConfig>> DeleteSKUPartConfigAsync(int id)
     {
         try
         {
@@ -99,7 +99,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartValues>> AddSKUPartValue(SKUPartValues sKUPartValues)
+    public async Task<Result<SKUPartValues>> AddSKUPartValueAsync(SKUPartValues sKUPartValues)
     {
         try
         {
@@ -137,7 +137,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartValues>> DeleteSKUPartValue(int id)
+    public async Task<Result<SKUPartValues>> DeleteSKUPartValueAsync(int id)
     {
         try
         {
@@ -173,7 +173,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<IEnumerable<SKUPartConfig>>> GetAllSKUPartConfigs()
+    public async Task<Result<IEnumerable<SKUPartConfig>>> GetAllSKUPartConfigsAsync()
     {
         try
         {
@@ -190,7 +190,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartConfig>> GetSKUPartConfigById(int id)
+    public async Task<Result<SKUPartConfig>> GetSKUPartConfigByIdAsync(int id)
     {
         try
         {

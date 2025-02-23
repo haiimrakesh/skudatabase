@@ -172,7 +172,7 @@ public class SKUConfigService : ISKUConfigService
 
     }
 
-    public async Task<Result<IEnumerable<SKUConfigSequence>>> ReorderSKUSequence(IEnumerable<SKUConfigSequence> skuSequence)
+    public async Task<Result<IEnumerable<SKUConfigSequence>>> ReorderSKUSequenceAsync(IEnumerable<SKUConfigSequence> skuSequence)
     {
         try
         {

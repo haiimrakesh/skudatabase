@@ -7,7 +7,7 @@ using SKUApp.Domain.Services;
 
 namespace SKUApp.Domain.Services.Tests;
 
-public class SKUPartServiceTests
+public class SKUPartConfigServiceTests
 {
     private ISKUUnitOfWork GetInMemoryUnitOfWork()
     {
@@ -38,7 +38,7 @@ public class SKUPartServiceTests
         var sKUPartConfig = unitOfWork.GetTestData_SKUPartConfig();
 
         // Act
-        await service.AddSKUPartConfig(sKUPartConfig);
+        await service.AddSKUPartConfigAsync(sKUPartConfig);
 
         // Assert
         //Should have created the SKUPartConfig with Id 1
@@ -56,7 +56,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        var result = await service.AddSKUPartConfig(sKUPartConfig);
+        var result = await service.AddSKUPartConfigAsync(sKUPartConfig);
         Assert.Equal(404, result.Error.ErrorCode);
     }
 
@@ -71,7 +71,7 @@ public class SKUPartServiceTests
         var sKUPartConfig = unitOfWork.GetTestData_SKUPartConfig();
 
         // Act & Assert
-        var result = await service.AddSKUPartConfig(sKUPartConfig);
+        var result = await service.AddSKUPartConfigAsync(sKUPartConfig);
         Assert.Equal(400, result.Error.ErrorCode);
     }
 
@@ -86,7 +86,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act
-        await service.DeleteSKUPartConfig(1);
+        await service.DeleteSKUPartConfigAsync(1);
 
         // Assert
         Assert.Null(await unitOfWork.SKUPartConfigRepository.GetByIdAsync(1));
@@ -100,7 +100,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        var result = await service.DeleteSKUPartConfig(1);
+        var result = await service.DeleteSKUPartConfigAsync(1);
         Assert.Equal(404, result.Error.ErrorCode);
     }
 
@@ -115,7 +115,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        var result = await service.DeleteSKUPartConfig(1);
+        var result = await service.DeleteSKUPartConfigAsync(1);
         Assert.Equal(400, result.Error.ErrorCode);
     }
 
@@ -130,7 +130,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        var result = await service.DeleteSKUPartConfig(1);
+        var result = await service.DeleteSKUPartConfigAsync(1);
         Assert.Equal(400, result.Error.ErrorCode);
     }
 
@@ -146,7 +146,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        var result = await service.DeleteSKUPartConfig(1);
+        var result = await service.DeleteSKUPartConfigAsync(1);
         Assert.Equal(400, result.Error.ErrorCode);
     }
 
@@ -167,7 +167,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act
-        await service.AddSKUPartValue(sKUPartValues);
+        await service.AddSKUPartValueAsync(sKUPartValues);
 
         // Assert
         Assert.NotNull(await unitOfWork.SKUPartValuesRepository.GetByIdAsync(1));
@@ -191,7 +191,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        var result = await service.AddSKUPartValue(sKUPartValues);
+        var result = await service.AddSKUPartValueAsync(sKUPartValues);
         Assert.Equal(400, result.Error.ErrorCode);
     }
 
@@ -214,7 +214,7 @@ public class SKUPartServiceTests
         };
 
         // Act & Assert
-        var result = await service.AddSKUPartValue(newSKUPartValues);
+        var result = await service.AddSKUPartValueAsync(newSKUPartValues);
         Assert.Equal(400, result.Error.ErrorCode);
     }
 
@@ -229,7 +229,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act
-        await service.DeleteSKUPartValue(1);
+        await service.DeleteSKUPartValueAsync(1);
 
         // Assert
         Assert.Null(await unitOfWork.SKUPartValuesRepository.GetByIdAsync(1));
@@ -243,7 +243,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        var result = await service.DeleteSKUPartValue(1);
+        var result = await service.DeleteSKUPartValueAsync(1);
         Assert.Equal(404, result.Error.ErrorCode);
     }
 
@@ -259,7 +259,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        var result = await service.DeleteSKUPartValue(1);
+        var result = await service.DeleteSKUPartValueAsync(1);
         Assert.Equal(400, result.Error.ErrorCode);
     }
 }
