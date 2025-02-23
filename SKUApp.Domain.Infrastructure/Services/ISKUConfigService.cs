@@ -54,7 +54,7 @@ public interface ISKUConfigService
     /// </summary>
     /// <param name="skuSequence">The collection of SKU sequences to reorder.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task<Result<IEnumerable<SKUConfigSequence>>> ReorderSKUSequence(IEnumerable<SKUConfigSequence> skuSequence);
+    Task<Result<IEnumerable<SKUConfigSequence>>> ReorderSKUSequenceAsync(IEnumerable<SKUConfigSequence> skuSequence);
 
     /// <summary>
     /// Activates a SKU configuration.

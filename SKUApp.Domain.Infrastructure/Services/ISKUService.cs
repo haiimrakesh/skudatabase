@@ -1,4 +1,5 @@
 using SKUApp.Domain.Entities;
+using SKUApp.Domain.Infrastructure.ErrorHandling;
 
 namespace SKUApp.Domain.Services;
 
@@ -12,25 +13,25 @@ public interface ISKUService
     /// </summary>
     /// <param name="id">The identifier of the SKU.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the SKU.</returns>
-    Task<SKU> GetSKUByIdAsync(int id);
+    Task<Result<SKU>> GetSKUByIdAsync(int id);
 
     /// <summary>
     /// Retrieves all SKUs.
     /// </summary>
     /// <returns>A task that represents the asynchronous operation. The task result contains a collection of SKUs.</returns>
-    Task<IEnumerable<SKU>> GetAllSKUsAsync();
+    Task<Result<IEnumerable<SKU>>> GetAllSKUsAsync();
 
     /// <summary>
     /// Adds a new SKU.
     /// </summary>
     /// <param name="sku">The SKU to add.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task AddSKUAsync(SKU sku);
+    Task<Result<SKU>> AddSKUAsync(SKU sku);
 
     /// <summary>
     /// Deletes a SKU by its identifier.
     /// </summary>
     /// <param name="id">The identifier of the SKU to delete.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task DeleteSKUAsync(int id);
+    Task<Result<SKU>> DeleteSKUAsync(int id);
 }
