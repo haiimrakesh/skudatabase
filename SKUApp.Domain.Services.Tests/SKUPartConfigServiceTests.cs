@@ -56,7 +56,8 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.AddSKUPartConfig(sKUPartConfig));
+        var result = await service.AddSKUPartConfig(sKUPartConfig);
+        Assert.Equal(404, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -70,7 +71,8 @@ public class SKUPartServiceTests
         var sKUPartConfig = unitOfWork.GetTestData_SKUPartConfig();
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.AddSKUPartConfig(sKUPartConfig));
+        var result = await service.AddSKUPartConfig(sKUPartConfig);
+        Assert.Equal(400, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -98,7 +100,8 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.DeleteSKUPartConfig(1));
+        var result = await service.DeleteSKUPartConfig(1);
+        Assert.Equal(404, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -107,11 +110,13 @@ public class SKUPartServiceTests
         // Arrange
         var unitOfWork = GetInMemoryUnitOfWork();
         await unitOfWork.AddTestData_SKUConfig("Test", SKUConfigStatusEnum.Active);
+        await unitOfWork.AddTestData_SKUPartConfig(SKUConfigStatusEnum.Active);
         await unitOfWork.SaveChangesAsync();
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.DeleteSKUPartConfig(1));
+        var result = await service.DeleteSKUPartConfig(1);
+        Assert.Equal(400, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -125,7 +130,8 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.DeleteSKUPartConfig(1));
+        var result = await service.DeleteSKUPartConfig(1);
+        Assert.Equal(400, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -134,12 +140,14 @@ public class SKUPartServiceTests
         // Arrange
         var unitOfWork = GetInMemoryUnitOfWork();
         await unitOfWork.AddTestData_SKUConfig();
+        await unitOfWork.AddTestData_SKUPartConfig();
         await unitOfWork.AddTestData_SKUConfigSequence();
         await unitOfWork.SaveChangesAsync();
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.DeleteSKUPartConfig(1));
+        var result = await service.DeleteSKUPartConfig(1);
+        Assert.Equal(400, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -183,7 +191,8 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.AddSKUPartValue(sKUPartValues));
+        var result = await service.AddSKUPartValue(sKUPartValues);
+        Assert.Equal(400, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -205,7 +214,8 @@ public class SKUPartServiceTests
         };
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.AddSKUPartValue(newSKUPartValues));
+        var result = await service.AddSKUPartValue(newSKUPartValues);
+        Assert.Equal(400, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -233,7 +243,8 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.DeleteSKUPartValue(1));
+        var result = await service.DeleteSKUPartValue(1);
+        Assert.Equal(404, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -248,6 +259,7 @@ public class SKUPartServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.DeleteSKUPartValue(1));
+        var result = await service.DeleteSKUPartValue(1);
+        Assert.Equal(400, result.Error.ErrorCode);
     }
 }

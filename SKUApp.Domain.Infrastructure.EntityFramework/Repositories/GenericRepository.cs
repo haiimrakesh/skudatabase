@@ -20,10 +20,6 @@ public class GenericRepository<T> : IRepository<T> where T : class
 
     public virtual async Task<T?> GetByIdAsync(int id)
     {
-        /*T? entity = await _dbSet.FindAsync(id);
-        if (entity == null)
-            throw new InvalidOperationException("Entity not found.");*/
-
         return await _dbSet.FindAsync(id);
     }
 

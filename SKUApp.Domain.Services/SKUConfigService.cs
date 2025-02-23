@@ -1,4 +1,5 @@
 using SKUApp.Domain.Entities;
+using SKUApp.Domain.Infrastructure.ErrorHandling;
 using SKUApp.Domain.Infrastructure.UnitOfWork;
 
 namespace SKUApp.Domain.Services;
@@ -11,121 +12,245 @@ public class SKUConfigService : ISKUConfigService
         _unitOfWork = unitOfWork;
     }
 
-    /// <summary>
-    /// Throws exception if the SKUConfig doesn't exist or if it is not in the specified status.
-    /// </summary>
-    /// <param name="id">SKU Config Id</param>
-    /// <param name="status">Status to be checked against </param>
-    /// <returns></returns>
-    private async Task<SKUConfig> CheckSKUStatus(int id, SKUConfigStatusEnum status)
+    private async Task<Result<SKUConfig>> CheckSKUStatus(int id, SKUConfigStatusEnum status)
     {
-        SKUConfig config = await this.GetSKUConfigByIdAsync(id);
-        if (config == null)
+        try
         {
-            throw new ArgumentNullException("SKUConfig not found");
-        }
-
-        if (config.Status == status)
-        {
-            throw new InvalidOperationException("Changes not allowed in the current status.");
-        }
-
-        return config;
-    }
-
-    public async Task AddSKUConfigAsync(SKUConfig skuConfig)
-    {
-        // skuConfig while adding is always in draft status
-        skuConfig.Status = SKUConfigStatusEnum.Draft;
-        if (skuConfig.Length < 0 || skuConfig.Length > 25)
-        {
-            throw new ArgumentOutOfRangeException("Length must be between 0 and 25");
-        }
-
-        if (string.IsNullOrEmpty(skuConfig.Name))
-        {
-            throw new ArgumentNullException("SKUName cannot be null or empty");
-        }
-
-        await _unitOfWork.SKUConfigRepository.AddAsync(skuConfig);
-    }
-
-    public async Task AddSKUSequenceAsync(SKUConfigSequence skuSequence)
-    {
-        await this.CheckSKUStatus(skuSequence.SKUPartConfigId, SKUConfigStatusEnum.Draft);
-
-        if (skuSequence.Sequence < 0 || skuSequence.Sequence > 25)
-        {
-            throw new ArgumentOutOfRangeException("Sequence must be between 0 and 25");
-        }
-
-        SKUPartConfig sKUPartConfig = await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(skuSequence.SKUPartConfigId);
-        if (sKUPartConfig == null)
-        {
-            throw new ArgumentNullException("SKUPartConfig not found");
-        }
-
-        await _unitOfWork.SKUConfigSequenceRepository.AddAsync(skuSequence);
-    }
-
-    public async Task DeleteSKUConfigAsync(int id)
-    {
-        await this.CheckSKUStatus(id, SKUConfigStatusEnum.Active);
-        await _unitOfWork.SKUConfigRepository.DeleteAsync(await _unitOfWork.SKUConfigRepository.GetByIdAsync(id));
-    }
-
-    public async Task DeleteSKUSequenceAsync(int id)
-    {
-        await this.CheckSKUStatus(id, SKUConfigStatusEnum.Active);
-        await _unitOfWork.SKUConfigSequenceRepository.DeleteAsync(await _unitOfWork.SKUConfigSequenceRepository.GetByIdAsync(id));
-    }
-
-    public async Task<IEnumerable<SKUConfig>> GetAllSKUConfigsAsync()
-    {
-        return await _unitOfWork.SKUConfigRepository.GetAllAsync();
-    }
-
-    public async Task<SKUConfig> GetSKUConfigByIdAsync(int id)
-    {
-        return await _unitOfWork.SKUConfigRepository.GetByIdAsync(id);
-    }
-
-    public async Task ReorderSKUSequence(IEnumerable<SKUConfigSequence> skuSequence)
-    {
-        bool isSKUCheckCompleted = false;
-        foreach (var skuseqItem in skuSequence)
-        {
-            if (!isSKUCheckCompleted)
+            var configResult = await this.GetSKUConfigByIdAsync(id);
+            if (!configResult.IsSuccess)
             {
-                await this.CheckSKUStatus(skuseqItem.SKUPartConfigId, SKUConfigStatusEnum.Active);
-                isSKUCheckCompleted = true;
+                return configResult;
             }
-            await _unitOfWork.SKUConfigSequenceRepository.UpdateAsync(skuseqItem);
-        }
-    }
 
-    public async Task ActivateSKUConfigAsync(int id)
-    {
-        var skuConfig = await this.CheckSKUStatus(id, SKUConfigStatusEnum.Active);
-        if (skuConfig.Status == SKUConfigStatusEnum.Discontinued)
+            if (configResult.Value?.Status == status)
+            {
+                return Error.BadRequest($"Changes not allowed in the current status.");
+            }
+
+            return configResult;
+        }
+        catch (Exception ex)
         {
-            throw new InvalidOperationException("Cannot activate a SKUConfig in Discontinued status");
+            return Error.InternalServerError(ex.Message);
         }
-        //Set the status to Active
-        skuConfig.Status = SKUConfigStatusEnum.Active;
-        await _unitOfWork.SKUConfigRepository.UpdateAsync(skuConfig);
-        //Set status of all related SKU Parts to Active
-        await _unitOfWork.SKUPartConfigRepository.ActivateSKUPartConfigBySKUConfigId(id);
+    }
+
+    public async Task<Result<SKUConfig>> AddSKUConfigAsync(SKUConfig skuConfig)
+    {
+        try
+        {
+            // skuConfig while adding is always in draft status
+            skuConfig.Status = SKUConfigStatusEnum.Draft;
+            if (skuConfig.Length < 0 || skuConfig.Length > 25)
+            {
+                return Error.BadRequest("Length must be between 0 and 25");
+            }
+
+            if (string.IsNullOrEmpty(skuConfig.Name))
+            {
+                return Error.BadRequest("SKUName cannot be null or empty");
+            }
+
+            await _unitOfWork.SKUConfigRepository.AddAsync(skuConfig);
+
+            return skuConfig;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
+    }
+
+    public async Task<Result<SKUConfigSequence>> AddSKUSequenceAsync(SKUConfigSequence skuSequence)
+    {
+        try
+        {
+            var result = await this.CheckSKUStatus(skuSequence.SKUPartConfigId, SKUConfigStatusEnum.Draft);
+            if (!result.IsSuccess)
+            {
+                return result.Error;
+            }
+            if (skuSequence.Sequence < 0 || skuSequence.Sequence > 25)
+            {
+                return Error.BadRequest("Sequence must be between 0 and 25");
+            }
+
+            SKUPartConfig? sKUPartConfig = await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(skuSequence.SKUPartConfigId);
+            if (sKUPartConfig == null)
+            {
+                return Error.NotFound("SKUPartConfig not found");
+            }
+
+            await _unitOfWork.SKUConfigSequenceRepository.AddAsync(skuSequence);
+
+            return skuSequence;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
+    }
+
+    public async Task<Result<SKUConfig>> DeleteSKUConfigAsync(int id)
+    {
+        try
+        {
+            var result = await this.CheckSKUStatus(id, SKUConfigStatusEnum.Active);
+            if (!result.IsSuccess)
+            {
+                return result.Error;
+            }
+            await _unitOfWork.SKUConfigRepository.DeleteAsync(result.Value!);
+            return result.Value!;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
 
     }
 
-    public async Task DeactivateSKUConfigAsync(int id)
+    public async Task<Result<SKUConfigSequence>> DeleteSKUSequenceAsync(int id)
     {
-        var skuConfig = await this.CheckSKUStatus(id, SKUConfigStatusEnum.Discontinued);
-        //Set the status to Active
-        skuConfig.Status = SKUConfigStatusEnum.Discontinued;
-        await _unitOfWork.SKUConfigRepository.UpdateAsync(skuConfig);
-        //Set status of all related SKU Parts to Active
-        await _unitOfWork.SKUPartConfigRepository.DeactivateSKUPartConfigBySKUConfigId(id);
+        try
+        {
+            var skuSquence = await _unitOfWork.SKUConfigSequenceRepository.GetByIdAsync(id);
+            if (skuSquence == null)
+            {
+                return Error.NotFound("SKUConfigSequence not found");
+            }
+
+            var result = await this.CheckSKUStatus(skuSquence.SKUConfigId, SKUConfigStatusEnum.Active);
+            if (!result.IsSuccess)
+            {
+                return result.Error;
+            }
+            await _unitOfWork.SKUConfigSequenceRepository.DeleteAsync(skuSquence);
+
+            return skuSquence;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
+
+    }
+
+    public async Task<Result<IEnumerable<SKUConfig>>> GetAllSKUConfigsAsync()
+    {
+        try
+        {
+            List<SKUConfig> skuConfigs = (await _unitOfWork.SKUConfigRepository.GetAllAsync()).ToList();
+            if (skuConfigs.Count == 0)
+            {
+                return Error.NotFound("No SKUConfigs found");
+            }
+            return skuConfigs;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
+
+    }
+
+    public async Task<Result<SKUConfig>> GetSKUConfigByIdAsync(int id)
+    {
+        try
+        {
+            var skuConfig = await _unitOfWork.SKUConfigRepository.GetByIdAsync(id);
+            if (skuConfig == null)
+            {
+                return Error.NotFound("SKUConfig not found");
+            }
+            return skuConfig;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
+
+    }
+
+    public async Task<Result<IEnumerable<SKUConfigSequence>>> ReorderSKUSequence(IEnumerable<SKUConfigSequence> skuSequence)
+    {
+        try
+        {
+            bool isSKUCheckCompleted = false;
+            foreach (var skuseqItem in skuSequence)
+            {
+                if (!isSKUCheckCompleted)
+                {
+                    var result = await this.CheckSKUStatus(skuseqItem.SKUPartConfigId, SKUConfigStatusEnum.Active);
+                    if (!result.IsSuccess)
+                    {
+                        return result.Error;
+                    }
+                    isSKUCheckCompleted = true;
+                }
+                await _unitOfWork.SKUConfigSequenceRepository.UpdateAsync(skuseqItem);
+            }
+
+            return skuSequence.ToList();
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
+
+    }
+
+    public async Task<Result<SKUConfig>> ActivateSKUConfigAsync(int id)
+    {
+        try
+        {
+            var skuConfigResult = await this.CheckSKUStatus(id, SKUConfigStatusEnum.Active);
+            if (!skuConfigResult.IsSuccess)
+            {
+                return skuConfigResult;
+            }
+            if (skuConfigResult.Value?.Status == SKUConfigStatusEnum.Discontinued)
+            {
+                return Error.BadRequest("Cannot activate a SKUConfig in Discontinued status");
+            }
+            //Set the status to Active
+            var skuConfig = skuConfigResult.Value;
+            skuConfig!.Status = SKUConfigStatusEnum.Active;
+            await _unitOfWork.SKUConfigRepository.UpdateAsync(skuConfig);
+            //Set status of all related SKU Parts to Active
+            await _unitOfWork.SKUPartConfigRepository.ActivateSKUPartConfigBySKUConfigId(id);
+
+            return skuConfig;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
+
+    }
+
+    public async Task<Result<SKUConfig>> DeactivateSKUConfigAsync(int id)
+    {
+        try
+        {
+
+            var skuConfigResult = await this.CheckSKUStatus(id, SKUConfigStatusEnum.Discontinued);
+            if (!skuConfigResult.IsSuccess)
+            {
+                return skuConfigResult;
+            }
+            //Set the status to Active
+            var skuConfig = skuConfigResult.Value;
+            skuConfig!.Status = SKUConfigStatusEnum.Discontinued;
+            await _unitOfWork.SKUConfigRepository.UpdateAsync(skuConfig);
+            //Set status of all related SKU Parts to Active
+            await _unitOfWork.SKUPartConfigRepository.DeactivateSKUPartConfigBySKUConfigId(id);
+
+            return skuConfig;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
     }
 }
