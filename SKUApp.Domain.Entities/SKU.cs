@@ -20,7 +20,7 @@ public class SKU
     /// <summary>
     /// Gets or sets the image associated with the SKU.
     /// </summary>
-    public byte[] Image { get; set; } = null!;
+    public byte[] Image { get; set; } = new byte[0];
 
     /// <summary>
     /// Gets or sets the identifier for the skill configuration associated with the SKU.
