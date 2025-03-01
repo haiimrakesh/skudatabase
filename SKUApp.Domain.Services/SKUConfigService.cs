@@ -52,6 +52,7 @@ public class SKUConfigService : ISKUConfigService
             }
 
             await _unitOfWork.SKUConfigRepository.AddAsync(skuConfig);
+            await _unitOfWork.SaveChangesAsync();
 
             return skuConfig;
         }

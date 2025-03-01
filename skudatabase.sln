@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.Services", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.Services.Tests", "SKUApp.Domain.Services.Tests\SKUApp.Domain.Services.Tests.csproj", "{62CCB3B7-CF7B-4879-B6C2-F1A03D4A0ECC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Middleware.Api", "SKUApp.Middleware.Api\SKUApp.Middleware.Api.csproj", "{388C2E03-232B-4639-9AD9-A64DF858182C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{62CCB3B7-CF7B-4879-B6C2-F1A03D4A0ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62CCB3B7-CF7B-4879-B6C2-F1A03D4A0ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62CCB3B7-CF7B-4879-B6C2-F1A03D4A0ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{388C2E03-232B-4639-9AD9-A64DF858182C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{388C2E03-232B-4639-9AD9-A64DF858182C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{388C2E03-232B-4639-9AD9-A64DF858182C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{388C2E03-232B-4639-9AD9-A64DF858182C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

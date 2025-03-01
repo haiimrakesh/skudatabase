@@ -1,0 +1,6 @@
+@SKUApp.Middleware.Api_HostAddress = http://localhost:5233
+
+GET {{SKUApp.Middleware.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
