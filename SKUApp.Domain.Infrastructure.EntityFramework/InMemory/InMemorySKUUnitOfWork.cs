@@ -15,7 +15,7 @@ namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory
         {
             _context = context;
             SKURepository = new GenericRepository<SKU>(_context);
-            SKUConfigRepository = new GenericRepository<SKUConfig>(_context);
+            SKUConfigRepository = new InMemorySKUConfigRepository(_context);
             SKUConfigSequenceRepository = new GenericRepository<SKUConfigSequence>(_context);
             SKUPartConfigRepository = new InMemorySKUPartConfigRepository(_context);
             SKUPartValuesRepository = new InMemorySKUPartValuesRepository(_context);
@@ -23,7 +23,7 @@ namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory
 
         public IRepository<SKU> SKURepository { get; private set; }
 
-        public IRepository<SKUConfig> SKUConfigRepository { get; private set; }
+        public ISKUConfigRepository SKUConfigRepository { get; private set; }
 
         public IRepository<SKUConfigSequence> SKUConfigSequenceRepository { get; private set; }
 

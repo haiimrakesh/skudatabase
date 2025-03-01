@@ -1,3 +1,4 @@
+using System.Net;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.UnitOfWork;
 using SKUApp.Domain.Services;
@@ -16,7 +17,7 @@ public static class SKUConfigApi
                 return Results.Problem("Failed to retrieve SKUPartConfigService.");
             }
             SKUConfigService service = new(sKUUnitOfWork);
-            return Results.Ok(await service.GetAllSKUConfigsAsync());
+            return ResultsTranslator.TranslateResult(await service.GetAllSKUConfigsAsync());
         }).WithName("GetSKUConfig").WithOpenApi();
 
         _ = app.MapPost("/api/skuconfig", async (HttpContext context, SKUConfig config) =>
@@ -27,8 +28,19 @@ public static class SKUConfigApi
                 return Results.Problem("Failed to retrieve SKUPartConfigService.");
             }
             SKUConfigService service = new(sKUUnitOfWork);
-            await service.AddSKUConfigAsync(config);
-            return Results.Ok(await service.GetAllSKUConfigsAsync());
+            return ResultsTranslator.TranslateResult(await service.AddSKUConfigAsync(config));
         }).WithName("PostSKUConfig").WithOpenApi();
+        
+        _ = app.MapDelete("/api/skuconfig/{id}", async (HttpContext context, int id) =>
+        {
+            ISKUUnitOfWork? sKUUnitOfWork = context.RequestServices.GetService<ISKUUnitOfWork>();
+            if (sKUUnitOfWork == null)
+            {
+                return Results.Problem("Failed to retrieve SKUPartConfigService.");
+            }
+            SKUConfigService service = new(sKUUnitOfWork);
+            return ResultsTranslator.TranslateResult(await service.DeleteSKUConfigAsync(id));
+            
+        }).WithName("DeleteSKUConfig").WithOpenApi();
     }
 }

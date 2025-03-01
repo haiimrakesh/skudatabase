@@ -1,3 +1,6 @@
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.ErrorHandling;
 using SKUApp.Domain.Infrastructure.UnitOfWork;
@@ -39,16 +42,20 @@ public class SKUConfigService : ISKUConfigService
     {
         try
         {
+            ValidationContext context = new(skuConfig);
+            Collection<ValidationResult> results = new();
+            Validator.TryValidateObject(skuConfig, context, results, true);
             // skuConfig while adding is always in draft status
             skuConfig.Status = SKUConfigStatusEnum.Draft;
-            if (skuConfig.Length < 0 || skuConfig.Length > 25)
-            {
-                return Error.BadRequest("Length must be between 0 and 25");
-            }
 
-            if (string.IsNullOrEmpty(skuConfig.Name))
+            if (results.Count > 0)
             {
-                return Error.BadRequest("SKUName cannot be null or empty");
+                StringBuilder sb = new();
+                foreach (var result in results)
+                {
+                    sb.AppendLine(result.ErrorMessage);
+                }
+                return Error.BadRequest(sb.ToString());
             }
 
             await _unitOfWork.SKUConfigRepository.AddAsync(skuConfig);
@@ -83,6 +90,7 @@ public class SKUConfigService : ISKUConfigService
             }
 
             await _unitOfWork.SKUConfigSequenceRepository.AddAsync(skuSequence);
+            await _unitOfWork.SaveChangesAsync();
 
             return skuSequence;
         }
@@ -101,7 +109,15 @@ public class SKUConfigService : ISKUConfigService
             {
                 return result.Error;
             }
+
+            if(await _unitOfWork.SKUConfigRepository.HasRelatedDataAsync(id))
+            {
+                return Error.BadRequest("Cannot delete SKUConfig with related data");
+            }
+
+            await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(id);
             await _unitOfWork.SKUConfigRepository.DeleteAsync(result.Value!);
+            await _unitOfWork.SaveChangesAsync();
             return result.Value!;
         }
         catch (Exception ex)
@@ -127,6 +143,7 @@ public class SKUConfigService : ISKUConfigService
                 return result.Error;
             }
             await _unitOfWork.SKUConfigSequenceRepository.DeleteAsync(skuSquence);
+            await _unitOfWork.SaveChangesAsync();
 
             return skuSquence;
         }
@@ -190,6 +207,7 @@ public class SKUConfigService : ISKUConfigService
                     isSKUCheckCompleted = true;
                 }
                 await _unitOfWork.SKUConfigSequenceRepository.UpdateAsync(skuseqItem);
+            await _unitOfWork.SaveChangesAsync();
             }
 
             return skuSequence.ToList();
@@ -220,6 +238,7 @@ public class SKUConfigService : ISKUConfigService
             await _unitOfWork.SKUConfigRepository.UpdateAsync(skuConfig);
             //Set status of all related SKU Parts to Active
             await _unitOfWork.SKUPartConfigRepository.ActivateSKUPartConfigBySKUConfigId(id);
+            await _unitOfWork.SaveChangesAsync();
 
             return skuConfig;
         }
@@ -246,6 +265,7 @@ public class SKUConfigService : ISKUConfigService
             await _unitOfWork.SKUConfigRepository.UpdateAsync(skuConfig);
             //Set status of all related SKU Parts to Active
             await _unitOfWork.SKUPartConfigRepository.DeactivateSKUPartConfigBySKUConfigId(id);
+            await _unitOfWork.SaveChangesAsync();
 
             return skuConfig;
         }
