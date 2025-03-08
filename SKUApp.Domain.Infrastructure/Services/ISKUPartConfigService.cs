@@ -1,7 +1,7 @@
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.ErrorHandling;
 
-namespace SKUApp.Domain.Services;
+namespace SKUApp.Domain.Infrastructure.Services;
 
 /// <summary>
 /// Interface for SKUPartConfigService.

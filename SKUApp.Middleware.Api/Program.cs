@@ -1,5 +1,7 @@
 using SKUApp.Domain.Infrastructure.EntityFramework.InMemory;
+using SKUApp.Domain.Infrastructure.Services;
 using SKUApp.Domain.Infrastructure.UnitOfWork;
+using SKUApp.Domain.Services;
 using SKUApp.Middleware.Api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<InMemoryDbContext>();
+builder.Services.AddScoped<ISKUConfigService, SKUConfigService>();
+builder.Services.AddScoped<ISKUPartConfigService, SKUPartConfigService>();
+builder.Services.AddScoped<ISKUService, SKUService>();
 builder.Services.AddScoped<ISKUUnitOfWork, InMemorySKUUnitOfWork>();
 
 var app = builder.Build();

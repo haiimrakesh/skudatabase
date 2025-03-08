@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.ErrorHandling;
+using SKUApp.Domain.Infrastructure.Services;
 using SKUApp.Domain.Infrastructure.UnitOfWork;
 
 public class SKUPartConfigService : ISKUPartConfigService
@@ -18,21 +19,14 @@ public class SKUPartConfigService : ISKUPartConfigService
     {
         try
         {
-
-            // Cannot add if the SKUPartConfig is active
-            // Check if the SKUPartConfig is active
-            var sKUConfig = await _unitOfWork.SKUConfigRepository.GetByIdAsync(sKUPartConfig.SKUConfigId);
-            // Perform a null check
-            if (sKUConfig == null)
+            sKUPartConfig.Id = 0;
+            sKUPartConfig.Name = sKUPartConfig.Name.Trim().ToUpper();
+            //Check if a sKUPartConfig with the same name exists
+            var exists = await _unitOfWork.SKUPartConfigRepository.FindAsync(s => s.Name == sKUPartConfig.Name);
+            if (exists.Any())
             {
-                return Error.NotFound("SKUConfig not found.");
+                return Error.BadRequest("SKUPartConfig with the same name already exists.");
             }
-
-            if (sKUConfig.Status == SKUConfigStatusEnum.Active)
-            {
-                return Error.BadRequest("Cannot add to a active SKUConfig.");
-            }
-
             // Add the SKUPartConfig to the repository
             await _unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
             // Add the default Generic type to values. 

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.ErrorHandling;
+using SKUApp.Domain.Infrastructure.Services;
 using SKUApp.Domain.Infrastructure.UnitOfWork;
 
 namespace SKUApp.Domain.Services;
@@ -58,6 +59,16 @@ public class SKUConfigService : ISKUConfigService
                 return Error.BadRequest(sb.ToString());
             }
 
+            skuConfig.Name = skuConfig.Name.ToUpper();
+            skuConfig.Id = 0;
+
+            //Check if a SKUConfig exists by the same name.
+            var existing = await _unitOfWork.SKUConfigRepository.FindAsync(s => s.Name == skuConfig.Name);
+            if (existing.Any())
+            {
+                return Error.BadRequest("SKUConfig with the same name already exists");
+            }
+
             await _unitOfWork.SKUConfigRepository.AddAsync(skuConfig);
             await _unitOfWork.SaveChangesAsync();
 
@@ -110,7 +121,7 @@ public class SKUConfigService : ISKUConfigService
                 return result.Error;
             }
 
-            if(await _unitOfWork.SKUConfigRepository.HasRelatedDataAsync(id))
+            if (await _unitOfWork.SKUConfigRepository.HasRelatedDataAsync(id))
             {
                 return Error.BadRequest("Cannot delete SKUConfig with related data");
             }
@@ -207,7 +218,7 @@ public class SKUConfigService : ISKUConfigService
                     isSKUCheckCompleted = true;
                 }
                 await _unitOfWork.SKUConfigSequenceRepository.UpdateAsync(skuseqItem);
-            await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync();
             }
 
             return skuSequence.ToList();
@@ -232,12 +243,19 @@ public class SKUConfigService : ISKUConfigService
             {
                 return Error.BadRequest("Cannot activate a SKUConfig in Discontinued status");
             }
+            //Can't activate a SKUConfig without a sequence
+            if (!await _unitOfWork.SKUConfigRepository.HasRelatedDataAsync(id))
+            {
+                return Error.BadRequest("Cannot activate a SKUConfig without a sequence");
+            }
+
+            //Check if the combined length of all SKUParts equal the SKUConfig length
+            //TODO
+
             //Set the status to Active
             var skuConfig = skuConfigResult.Value;
             skuConfig!.Status = SKUConfigStatusEnum.Active;
             await _unitOfWork.SKUConfigRepository.UpdateAsync(skuConfig);
-            //Set status of all related SKU Parts to Active
-            await _unitOfWork.SKUPartConfigRepository.ActivateSKUPartConfigBySKUConfigId(id);
             await _unitOfWork.SaveChangesAsync();
 
             return skuConfig;
@@ -253,7 +271,6 @@ public class SKUConfigService : ISKUConfigService
     {
         try
         {
-
             var skuConfigResult = await this.CheckSKUStatus(id, SKUConfigStatusEnum.Discontinued);
             if (!skuConfigResult.IsSuccess)
             {
@@ -263,8 +280,6 @@ public class SKUConfigService : ISKUConfigService
             var skuConfig = skuConfigResult.Value;
             skuConfig!.Status = SKUConfigStatusEnum.Discontinued;
             await _unitOfWork.SKUConfigRepository.UpdateAsync(skuConfig);
-            //Set status of all related SKU Parts to Active
-            await _unitOfWork.SKUPartConfigRepository.DeactivateSKUPartConfigBySKUConfigId(id);
             await _unitOfWork.SaveChangesAsync();
 
             return skuConfig;

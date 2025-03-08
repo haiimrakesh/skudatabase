@@ -17,6 +17,7 @@ namespace SKUApp.Domain.Entities
         /// Gets or sets the name of the SKU configuration.
         /// </summary>
         [Required]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 25 characters.")]
         public string Name { get; set; } = null!;
 
         /// <summary>
@@ -34,7 +35,8 @@ namespace SKUApp.Domain.Entities
         /// <summary>
         /// Description of the SKU
         /// </summary>
-        [Required(AllowEmptyStrings = true)]
+        [Required]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Description must be between 3 and 100 characters.")]
         public string Description { get; set; } = string.Empty;
     }
 }

@@ -8,7 +8,6 @@ namespace SKUApp.Domain.Entities
     /// </summary>
     public class SKUPartConfig
     {
-        private int _length = 0;
         /// <summary>
         /// Gets or sets the unique identifier for the SKU part configuration.
         /// </summary>
@@ -22,26 +21,7 @@ namespace SKUApp.Domain.Entities
         /// <summary>
         /// Gets or sets the length of the SKU part.
         /// </summary>
-        public int Length
-        {
-            get
-            {
-                return _length;
-            }
-            set
-            {
-                if (value < 1)
-                {
-                    throw new ArgumentException("Length must be greater than 0");
-                }
-                if (value > 5)
-                {
-                    _length = 5;
-                    throw new ArgumentException("Length must be lesser than 5");
-                }
-                _length = value;
-            }
-        }
+        public int Length { get; set; }
 
         /// <summary>
         /// Gets or sets the generic name of the SKU part.
@@ -67,11 +47,6 @@ namespace SKUApp.Domain.Entities
         /// Gets or sets a value indicating whether conflicting letters and characters are restricted in the SKU part.
         /// </summary>
         public bool RestrictConflictingLettersAndCharacters { get; set; }
-
-        /// <summary>
-        /// Gets or sets the SKU identifier associated with this configuration.
-        /// </summary>
-        public int SKUConfigId { get; set; }
 
         /// <summary>
         /// Indicates if a Hyphen is included at the end of the SKU Part entry. Increases the length by 1.

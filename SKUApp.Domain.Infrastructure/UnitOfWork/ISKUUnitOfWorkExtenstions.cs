@@ -18,18 +18,17 @@ public static class ISKUUnitOfWorkExtenstions
         return new SKUPartConfig
         {
             Id = 1,
-            Name = "Test",
+            Name = "TEST",
             Description = "Test",
             Length = 3,
             GenericName = "Test",
             IsAlphaNumeric = true,
             IsCaseSensitive = true,
-            SKUConfigId = 1,
             Status = status
         };
     }
     public static async Task AddTestData_SKUConfig(this ISKUUnitOfWork context,
-        string name = "Test",
+        string name = "TEST",
         SKUConfigStatusEnum status = SKUConfigStatusEnum.Draft)
     {
         await context.SKUConfigRepository.AddAsync(
@@ -43,7 +42,7 @@ public static class ISKUUnitOfWorkExtenstions
         );
     }
     public static async Task AddTestData_SKUPartValues(this ISKUUnitOfWork context,
-        string name = "Test", string uniqueCode = "TestCode")
+        string name = "TEST", string uniqueCode = "TestCode")
     {
         await context.SKUPartValuesRepository.AddAsync(
             new SKUPartValues
@@ -56,7 +55,7 @@ public static class ISKUUnitOfWorkExtenstions
         );
     }
     public static async Task AddTestData_SKUConfigSequence(this ISKUUnitOfWork context,
-    string name = "Test", int sKUConfigSequence = 0)
+    string name = "TEST", int sKUConfigSequence = 0)
     {
         await context.SKUConfigSequenceRepository.AddAsync(
             new SKUConfigSequence

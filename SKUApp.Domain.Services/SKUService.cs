@@ -1,5 +1,6 @@
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.ErrorHandling;
+using SKUApp.Domain.Infrastructure.Services;
 using SKUApp.Domain.Infrastructure.UnitOfWork;
 
 namespace SKUApp.Domain.Services;
@@ -45,15 +46,15 @@ public class SKUService : ISKUService
     }
 
     public async Task<Result<IEnumerable<SKU>>> GetAllSKUsAsync()
-    {        
+    {
         try
         {
             IEnumerable<SKU> sKUs = await _unitOfWork.SKURepository.GetAllAsync();
-            if(sKUs == null || sKUs.Count() == 0)
+            if (sKUs == null || sKUs.Count() == 0)
             {
                 return Error.NotFound("SKUs not found.");
             }
-            return sKUs.ToList();   
+            return sKUs.ToList();
         }
         catch (Exception ex)
         {
@@ -62,11 +63,11 @@ public class SKUService : ISKUService
     }
 
     public async Task<Result<SKU>> GetSKUByIdAsync(int id)
-    {        
+    {
         try
         {
             var sKU = await _unitOfWork.SKURepository.GetByIdAsync(id);
-            if(sKU == null)
+            if (sKU == null)
             {
                 return Error.NotFound("SKU not found.");
             }

@@ -67,6 +67,24 @@ public class SKUConfigServiceTests
     }
 
     [Fact]
+    public async Task AddSKUConfig_ShouldReturnErrorIfNameIsDuplicate()
+    {
+        // Arrange
+        var unitOfWork = GetInMemoryUnitOfWork();
+        await unitOfWork.AddTestData_SKUConfig();
+        await unitOfWork.SaveChangesAsync();
+        var service = new SKUConfigService(unitOfWork);
+        var skuConfig = new SKUConfig { Name = "TEST", Length = 10 };
+
+        // Act
+        var result = await service.AddSKUConfigAsync(skuConfig);
+
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(400, result.Error.ErrorCode);
+    }
+
+    [Fact]
     public async Task DeleteSKUConfig_ShouldDeleteSKUConfig()
     {
         // Arrange

@@ -32,8 +32,6 @@ public class SKUPartConfigServiceTests
     {
         // Arrange
         var unitOfWork = GetInMemoryUnitOfWork();
-        await unitOfWork.AddTestData_SKUConfig();
-        await unitOfWork.SaveChangesAsync();
         var service = new SKUPartConfigService(unitOfWork);
         var sKUPartConfig = unitOfWork.GetTestData_SKUPartConfig();
 
@@ -48,30 +46,20 @@ public class SKUPartConfigServiceTests
     }
 
     [Fact]
-    public async Task AddSKUPartConfig_ShouldThrowExceptionIfSKUConfigNotFound()
+    public async Task AddSKUPartConfig_ShouldThrowErrorIfPartConfigAlreadyExists()
     {
         // Arrange
         var unitOfWork = GetInMemoryUnitOfWork();
-        var sKUPartConfig = unitOfWork.GetTestData_SKUPartConfig();
-        var service = new SKUPartConfigService(unitOfWork);
-
-        // Act & Assert
-        var result = await service.AddSKUPartConfigAsync(sKUPartConfig);
-        Assert.Equal(404, result.Error.ErrorCode);
-    }
-
-    [Fact]
-    public async Task AddSKUPartConfig_ShouldThrowExceptionIfSKUConfigIsActive()
-    {
-        // Arrange
-        var unitOfWork = GetInMemoryUnitOfWork();
-        await unitOfWork.AddTestData_SKUConfig("Test", SKUConfigStatusEnum.Active);
+        await unitOfWork.AddTestData_SKUPartConfig();
         await unitOfWork.SaveChangesAsync();
         var service = new SKUPartConfigService(unitOfWork);
         var sKUPartConfig = unitOfWork.GetTestData_SKUPartConfig();
 
-        // Act & Assert
+        // Act
         var result = await service.AddSKUPartConfigAsync(sKUPartConfig);
+
+        // Assert
+        //should throw BadRequest error
         Assert.Equal(400, result.Error.ErrorCode);
     }
 
@@ -90,33 +78,6 @@ public class SKUPartConfigServiceTests
 
         // Assert
         Assert.Null(await unitOfWork.SKUPartConfigRepository.GetByIdAsync(1));
-    }
-
-    [Fact]
-    public async Task DeleteSKUPartConfig_ShouldThrowExceptionIfSKUPartConfigNotFound()
-    {
-        // Arrange
-        var unitOfWork = GetInMemoryUnitOfWork();
-        var service = new SKUPartConfigService(unitOfWork);
-
-        // Act & Assert
-        var result = await service.DeleteSKUPartConfigAsync(1);
-        Assert.Equal(404, result.Error.ErrorCode);
-    }
-
-    [Fact]
-    public async Task DeleteSKUPartConfig_ShouldThrowExceptionIfSKUPartConfigIsActive()
-    {
-        // Arrange
-        var unitOfWork = GetInMemoryUnitOfWork();
-        await unitOfWork.AddTestData_SKUConfig("Test", SKUConfigStatusEnum.Active);
-        await unitOfWork.AddTestData_SKUPartConfig(SKUConfigStatusEnum.Active);
-        await unitOfWork.SaveChangesAsync();
-        var service = new SKUPartConfigService(unitOfWork);
-
-        // Act & Assert
-        var result = await service.DeleteSKUPartConfigAsync(1);
-        Assert.Equal(400, result.Error.ErrorCode);
     }
 
     [Fact]
@@ -139,7 +100,6 @@ public class SKUPartConfigServiceTests
     {
         // Arrange
         var unitOfWork = GetInMemoryUnitOfWork();
-        await unitOfWork.AddTestData_SKUConfig();
         await unitOfWork.AddTestData_SKUPartConfig();
         await unitOfWork.AddTestData_SKUConfigSequence();
         await unitOfWork.SaveChangesAsync();
@@ -178,7 +138,6 @@ public class SKUPartConfigServiceTests
     {
         // Arrange
         var unitOfWork = GetInMemoryUnitOfWork();
-        await unitOfWork.AddTestData_SKUConfig("Test", SKUConfigStatusEnum.Active);
         await unitOfWork.AddTestData_SKUPartConfig(SKUConfigStatusEnum.Active);
         await unitOfWork.SaveChangesAsync();
         var sKUPartValues = new SKUPartValues
@@ -200,7 +159,6 @@ public class SKUPartConfigServiceTests
     {
         // Arrange
         var unitOfWork = GetInMemoryUnitOfWork();
-        await unitOfWork.AddTestData_SKUConfig();
         await unitOfWork.AddTestData_SKUPartConfig();
         await unitOfWork.AddTestData_SKUPartValues("TestValue", "TestCode");
         await unitOfWork.SaveChangesAsync();
@@ -254,7 +212,6 @@ public class SKUPartConfigServiceTests
         var unitOfWork = GetInMemoryUnitOfWork();
         await unitOfWork.AddTestData_SKUPartConfig(SKUConfigStatusEnum.Active);
         await unitOfWork.AddTestData_SKUPartValues();
-        await unitOfWork.AddTestData_SKUConfig("Test", SKUConfigStatusEnum.Active);
         await unitOfWork.SaveChangesAsync();
         var service = new SKUPartConfigService(unitOfWork);
 

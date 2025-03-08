@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.EntityFramework.Repositories;
 using SKUApp.Domain.Infrastructure.Repositories;
-using SKUApp.Domain.Infrastructure.ErrorHandling;
 
 namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory;
 
@@ -32,8 +31,7 @@ public class InMemorySKUConfigRepository : GenericRepository<SKUConfig>, ISKUCon
 
     public async Task<bool> HasRelatedDataAsync(int skuConfigId)
     {
-        var hasSKUPartData = await _context.SKUPartConfigs.AnyAsync(x => x.SKUConfigId == skuConfigId);
         var hasSKUConfigSequenceData = await _context.SKUConfigSequences.AnyAsync(x => x.SKUConfigId == skuConfigId);
-        return hasSKUPartData || hasSKUConfigSequenceData;
+        return hasSKUConfigSequenceData;
     }
 }

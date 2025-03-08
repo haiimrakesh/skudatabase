@@ -7,7 +7,7 @@ public interface ISKUUnitOfWork : IDisposable
 {
     IRepository<SKU> SKURepository { get; }
     ISKUConfigRepository SKUConfigRepository { get; }
-    IRepository<SKUConfigSequence> SKUConfigSequenceRepository { get; }
+    ISKUConfigSequenceRepository SKUConfigSequenceRepository { get; }
     ISKUPartConfigRepository SKUPartConfigRepository { get; }
     ISKUPartValuesRepository SKUPartValuesRepository { get; }
 
