@@ -11,9 +11,9 @@ public static class SKUConfigApi
 {
     public static void MapSKUConfigEndpoints(this WebApplication app)
     {
-        Func<SKUConfig, GetSKUConfigResponse> transformMethod = (SKUConfig config) =>
+        Func<SKUConfig, SKUConfigResponse> transformMethod = (SKUConfig config) =>
         {
-            return new GetSKUConfigResponse
+            return new SKUConfigResponse
             {
                 Id = config.Id,
                 Name = config.Name,

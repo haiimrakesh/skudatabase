@@ -18,7 +18,7 @@ namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory
             SKUConfigRepository = new InMemorySKUConfigRepository(_context);
             SKUConfigSequenceRepository = new InMemorySKUConfigSequenceRepository(_context);
             SKUPartConfigRepository = new InMemorySKUPartConfigRepository(_context);
-            SKUPartValuesRepository = new InMemorySKUPartValuesRepository(_context);
+            SKUPartEntryRepository = new InMemorySKUPartEntryRepository(_context);
         }
 
         public IRepository<SKU> SKURepository { get; private set; }
@@ -29,7 +29,7 @@ namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory
 
         public ISKUPartConfigRepository SKUPartConfigRepository { get; private set; }
 
-        public ISKUPartValuesRepository SKUPartValuesRepository { get; private set; }
+        public ISKUPartEntryRepository SKUPartEntryRepository { get; private set; }
 
         public async Task<int> SaveChangesAsync()
         {

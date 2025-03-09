@@ -34,5 +34,6 @@ var summaries = new[]
 
 app.MapSKUConfigEndpoints();
 app.MapSKUPartConfigEndpoints();
+app.MapSKUPartEntryEndpoints();
 
 app.Run();

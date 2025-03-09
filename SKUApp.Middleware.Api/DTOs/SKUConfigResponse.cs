@@ -1,6 +1,6 @@
 namespace SKUApp.Middleware.Api.DTOs
 {
-    public class GetSKUConfigResponse
+    public class SKUConfigResponse
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

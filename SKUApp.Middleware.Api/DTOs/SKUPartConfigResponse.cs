@@ -1,12 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SKUApp.Domain.Entities
+namespace SKUApp.Middleware.Api.DTOs
 {
     /// <summary>
     /// Represents the configuration for a SKU part.
     /// </summary>
-    public class SKUPartConfig
+    public class SKUPartConfigResponse
     {
         /// <summary>
         /// Gets or sets the unique identifier for the SKU part configuration.
@@ -62,7 +62,7 @@ namespace SKUApp.Domain.Entities
         /// <summary>
         /// Gets or sets the width of the SKU configuration.
         /// </summary>
-        public SKUConfigStatusEnum Status { get; set; } = SKUConfigStatusEnum.Draft;
+        public string Status { get; set; } = string.Empty;
 
         /// <summary>
         /// Description of the SKU Part.
@@ -70,16 +70,5 @@ namespace SKUApp.Domain.Entities
         [Required]
         [StringLength(100)]
         public string Description { get; set; } = string.Empty;
-        public string GetDefaultGenericCode()
-        {
-            if (this.IsAlphaNumeric)
-            {
-                return new string('Z', this.Length);
-            }
-            else
-            {
-                return new string('9', this.Length);
-            }
-        }
     }
 }

@@ -44,8 +44,8 @@ public static class ISKUUnitOfWorkExtenstions
     public static async Task AddTestData_SKUPartValues(this ISKUUnitOfWork context,
         string name = "TEST", string uniqueCode = "TestCode")
     {
-        await context.SKUPartValuesRepository.AddAsync(
-            new SKUPartValues
+        await context.SKUPartEntryRepository.AddAsync(
+            new SKUPartEntry
             {
                 Id = 1,
                 SKUPartConfigId = 1,

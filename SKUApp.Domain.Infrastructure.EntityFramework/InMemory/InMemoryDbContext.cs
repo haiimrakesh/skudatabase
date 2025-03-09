@@ -10,7 +10,7 @@ namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory
             : base(options)
         {
             SKUs = Set<SKU>();
-            SKUPartValues = Set<SKUPartValues>();
+            SKUPartEntries = Set<SKUPartEntry>();
             SKUConfigs = Set<SKUConfig>();
             SKUConfigSequences = Set<SKUConfigSequence>();
             SKUPartConfigs = Set<SKUPartConfig>();
@@ -23,8 +23,8 @@ namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory
                 return SKUs as DbSet<T>;
             if (typeof(T) == typeof(SKUPartConfig))
                 return SKUPartConfigs as DbSet<T>;
-            if (typeof(T) == typeof(SKUPartValues))
-                return SKUPartValues as DbSet<T>;
+            if (typeof(T) == typeof(SKUPartEntry))
+                return SKUPartEntries as DbSet<T>;
             if (typeof(T) == typeof(SKUConfig))
                 return SKUConfigs as DbSet<T>;
             if (typeof(T) == typeof(SKUConfigSequence))
@@ -34,7 +34,7 @@ namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory
         }
 
         public DbSet<SKU> SKUs { get; set; }
-        public DbSet<SKUPartValues> SKUPartValues { get; set; }
+        public DbSet<SKUPartEntry> SKUPartEntries { get; set; }
         public DbSet<SKUConfig> SKUConfigs { get; set; }
         public DbSet<SKUConfigSequence> SKUConfigSequences { get; set; }
         public DbSet<SKUPartConfig> SKUPartConfigs { get; set; }
@@ -43,7 +43,7 @@ namespace SKUApp.Domain.Infrastructure.EntityFramework.InMemory
 
         IQueryable<SKUPartConfig> ISKUDbContext.SKUPartConfigs => SKUPartConfigs;
 
-        IQueryable<SKUPartValues> ISKUDbContext.SKUPartValues => SKUPartValues;
+        IQueryable<SKUPartEntry> ISKUDbContext.SKUPartEntries => SKUPartEntries;
 
         IQueryable<SKUConfig> ISKUDbContext.SKUConfigs => SKUConfigs;
 

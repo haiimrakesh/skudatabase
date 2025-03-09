@@ -26,7 +26,7 @@ public interface ISKUDbContext
     /// <summary>
     /// Gets or sets the DbSet of SKUPartValues entities.
     /// </summary>
-    IQueryable<SKUPartValues> SKUPartValues { get; }
+    IQueryable<SKUPartEntry> SKUPartEntries { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUConfig entities.

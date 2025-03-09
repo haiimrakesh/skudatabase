@@ -44,7 +44,7 @@ public interface ISKUPartConfigService
     /// <exception cref="InvalidOperationException">
     /// Thrown when the SKUPartConfig is active or a SKUPartValue with the same UniqueCode already exists.
     /// </exception>
-    Task<Result<SKUPartValues>> AddSKUPartValueAsync(SKUPartValues sKUPartValues);
+    Task<Result<SKUPartEntry>> AddSKUPartEntryAsync(SKUPartEntry sKUPartEntry);
 
     /// <summary>
     /// Deletes an existing SKUPartValue.
@@ -54,5 +54,10 @@ public interface ISKUPartConfigService
     /// <exception cref="InvalidOperationException">
     /// Thrown when the SKUPartValues is not found or the SKUPartConfig is active.
     /// </exception>
-    Task<Result<SKUPartValues>> DeleteSKUPartValueAsync(int id);
+    Task<Result<SKUPartEntry>> DeleteSKUPartEntryAsync(int id);
+    /// <summary>
+    /// Gets all SKUPartEntries by PartConfigId.
+    /// </summary>
+    /// <returns></returns>
+    Task<Result<IEnumerable<SKUPartEntry>>> GetSKUPartEntriesByPartConfigIdAsync(int partConfigId);
 }

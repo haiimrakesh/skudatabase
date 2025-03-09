@@ -30,8 +30,8 @@ public class SKUPartConfigService : ISKUPartConfigService
             // Add the SKUPartConfig to the repository
             await _unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
             // Add the default Generic type to values. 
-            await _unitOfWork.SKUPartValuesRepository.AddAsync(
-                new SKUPartValues
+            await _unitOfWork.SKUPartEntryRepository.AddAsync(
+                new SKUPartEntry
                 {
                     SKUPartConfigId = sKUPartConfig.Id,
                     Name = sKUPartConfig.GenericName,
@@ -67,7 +67,7 @@ public class SKUPartConfigService : ISKUPartConfigService
             // Cannot delete a SKUPartConfig that has SKUPartValues
             // Cannot delete a SKUPartConfig that is part of a SKU
             // Check if the SKUPartConfig has any SKUPartValues
-            var hasSKUPartValues = await _unitOfWork.SKUPartValuesRepository.FindAsync(v =>
+            var hasSKUPartValues = await _unitOfWork.SKUPartEntryRepository.FindAsync(v =>
             v.SKUPartConfigId == sKUPartConfig.Id);
             if (hasSKUPartValues.Any())
             {
@@ -93,13 +93,13 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartValues>> AddSKUPartValueAsync(SKUPartValues sKUPartValues)
+    public async Task<Result<SKUPartEntry>> AddSKUPartEntryAsync(SKUPartEntry sKUPartEntry)
     {
         try
         {
             // Cannot add if the SKUPartConfig is active
             // Check if the SKUPartConfig is active
-            var sKUPartConfig = await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(sKUPartValues.SKUPartConfigId);
+            var sKUPartConfig = await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(sKUPartEntry.SKUPartConfigId);
             if (sKUPartConfig == null)
             {
                 return Error.NotFound("SKUPartConfig not found.");
@@ -110,20 +110,20 @@ public class SKUPartConfigService : ISKUPartConfigService
                 return Error.BadRequest("Cannot add to a active SKUPartConfig.");
             }
 
-            string uniqueCode = sKUPartValues.UniqueCode;
-            int skupartConfigId = sKUPartValues.SKUPartConfigId;
+            string uniqueCode = sKUPartEntry.UniqueCode;
+            int skupartConfigId = sKUPartEntry.SKUPartConfigId;
             // Check if the SKUPartValue exists by UniqueCode
-            var exists = await _unitOfWork.SKUPartValuesRepository.GetSKUPartValuesByUniqueCode(uniqueCode, skupartConfigId);
+            var exists = await _unitOfWork.SKUPartEntryRepository.GetSKUPartEntriesByUniqueCode(uniqueCode, skupartConfigId);
             if (exists.Any())
             {
                 return Error.BadRequest("SKUPartValue with the same UniqueCode already exists.");
             }
 
             // Add the SKUPartValues to the repository
-            await _unitOfWork.SKUPartValuesRepository.AddAsync(sKUPartValues);
+            await _unitOfWork.SKUPartEntryRepository.AddAsync(sKUPartEntry);
             await _unitOfWork.SaveChangesAsync();
 
-            return sKUPartValues;
+            return sKUPartEntry;
         }
         catch (Exception ex)
         {
@@ -131,12 +131,12 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartValues>> DeleteSKUPartValueAsync(int id)
+    public async Task<Result<SKUPartEntry>> DeleteSKUPartEntryAsync(int id)
     {
         try
         {
             // Get the SKUPartValues from the repository
-            var sKUPartValues = await _unitOfWork.SKUPartValuesRepository.GetByIdAsync(id);
+            var sKUPartValues = await _unitOfWork.SKUPartEntryRepository.GetByIdAsync(id);
             // Perform a null check
             if (sKUPartValues == null)
             {
@@ -156,7 +156,7 @@ public class SKUPartConfigService : ISKUPartConfigService
             }
 
             // Remove the SKUPartValues from the repository
-            await _unitOfWork.SKUPartValuesRepository.DeleteAsync(sKUPartValues);
+            await _unitOfWork.SKUPartEntryRepository.DeleteAsync(sKUPartValues);
             await _unitOfWork.SaveChangesAsync();
 
             return sKUPartValues;
@@ -194,6 +194,23 @@ public class SKUPartConfigService : ISKUPartConfigService
                 return Error.NotFound("SKUPartConfig not found.");
             }
             return sKUPartConfig;
+        }
+        catch (Exception ex)
+        {
+            return Error.InternalServerError(ex.Message);
+        }
+    }
+
+    public async Task<Result<IEnumerable<SKUPartEntry>>> GetSKUPartEntriesByPartConfigIdAsync(int partConfigId)
+    {
+        try
+        {
+            IEnumerable<SKUPartEntry> list = await _unitOfWork.SKUPartEntryRepository.FindAsync(v => v.SKUPartConfigId == partConfigId);
+            if (list == null || list.Count() == 0)
+            {
+                return Error.NotFound("No SKUPartEntries found.");
+            }
+            return list.ToList();
         }
         catch (Exception ex)
         {

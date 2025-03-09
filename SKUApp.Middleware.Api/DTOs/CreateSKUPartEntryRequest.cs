@@ -1,15 +1,10 @@
-namespace SKUApp.Domain.Entities
+namespace SKUApp.Middleware.Api.DTOs
 {
     /// <summary>
     /// Represents the SKU part values.
     /// </summary>
-    public class SKUPartValues
+    public class CreateSKUPartEntryRequest
     {
-        /// <summary>
-        /// Gets or sets the unique identifier for the SKU part value.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Gets or sets the unique code for the SKU part value.
         /// </summary>
