@@ -24,7 +24,7 @@ public class SKUConfigServiceTests
         // Arrange
         var unitOfWork = GetInMemoryUnitOfWork();
         var service = new SKUConfigService(unitOfWork);
-        var skuConfig = new SKUConfig { Name = "Test", Length = 10 };
+        var skuConfig = new SKUConfig { Name = "Test", Length = 10, Description = "Test Description" };
 
         // Act
         var result = await service.AddSKUConfigAsync(skuConfig);

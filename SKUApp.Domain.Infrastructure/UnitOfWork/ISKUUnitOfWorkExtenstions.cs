@@ -20,7 +20,7 @@ public static class ISKUUnitOfWorkExtenstions
             Id = 1,
             Name = "TEST",
             Description = "Test",
-            Length = 3,
+            Length = 5,
             GenericName = "Test",
             IsAlphaNumeric = true,
             IsCaseSensitive = true,

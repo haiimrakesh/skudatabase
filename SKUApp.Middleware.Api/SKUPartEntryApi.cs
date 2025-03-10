@@ -20,7 +20,7 @@ public static class SKUPartValueApi
             };
         };
 
-        _ = app.MapGet("/api/skupartentries/{Id}", async (HttpContext context, int Id) =>
+        _ = app.MapGet("/api/skupartentries/{partConfigId}", async (HttpContext context, int partConfigId) =>
         {
             ISKUPartConfigService? sKUPartConfigService = context.RequestServices.GetService<ISKUPartConfigService>();
             if (sKUPartConfigService == null)
@@ -28,7 +28,7 @@ public static class SKUPartValueApi
                 return Results.Problem("Failed to retrieve SKUPartConfigService.");
             }
             return ResultsTranslator.TranslateResultFromEnumerable(
-                await sKUPartConfigService.GetSKUPartEntriesByPartConfigIdAsync(Id), transformMethod);
+                await sKUPartConfigService.GetSKUPartEntriesByPartConfigIdAsync(partConfigId), transformMethod);
         }).WithTags("SKUPartEntry").WithName("GetSKUPartEntriesByPartConfigId").WithOpenApi();
 
         _ = app.MapPost("/api/skupartentry", async (HttpContext context, CreateSKUPartEntryRequest config) =>

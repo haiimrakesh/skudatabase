@@ -111,6 +111,10 @@ public class SKUPartConfigService : ISKUPartConfigService
             }
 
             string uniqueCode = sKUPartEntry.UniqueCode;
+            if (uniqueCode.Length != sKUPartConfig.Length)
+            {
+                return Error.BadRequest($"UniqueCode length {uniqueCode.Length} does not match the SKUPartConfig length {sKUPartConfig.Length}.");
+            }
             int skupartConfigId = sKUPartEntry.SKUPartConfigId;
             // Check if the SKUPartValue exists by UniqueCode
             var exists = await _unitOfWork.SKUPartEntryRepository.GetSKUPartEntriesByUniqueCode(uniqueCode, skupartConfigId);
@@ -153,6 +157,12 @@ public class SKUPartConfigService : ISKUPartConfigService
             if (sKUPartConfig.Status == SKUConfigStatusEnum.Active)
             {
                 return Error.BadRequest("Cannot delete an active SKUPartConfig.");
+            }
+
+            // Cannot delete Generic SKUPartEntry
+            if (sKUPartValues.UniqueCode == sKUPartConfig.GetDefaultGenericCode())
+            {
+                return Error.BadRequest("Cannot delete Generic SKUPartEntry.");
             }
 
             // Remove the SKUPartValues from the repository

@@ -175,6 +175,27 @@ public class SKUPartConfigServiceTests
         var result = await service.AddSKUPartEntryAsync(newSKUPartValues);
         Assert.Equal(400, result.Error.ErrorCode);
     }
+    [Fact]
+    public async Task AddSKUPartValue_ShouldThrowExceptionIfUniqueCodeIsNotExpectedLength()
+    {
+        // Arrange
+        var unitOfWork = GetInMemoryUnitOfWork();
+        await unitOfWork.AddTestData_SKUPartConfig();
+        await unitOfWork.AddTestData_SKUPartValues("TestValue", "TestCode");
+        await unitOfWork.SaveChangesAsync();
+        var service = new SKUPartConfigService(unitOfWork);
+        var newSKUPartValues = new SKUPartEntry
+        {
+            Id = 2,
+            SKUPartConfigId = 1,
+            Name = "TestValue2",
+            UniqueCode = "TestCode"
+        };
+
+        // Act & Assert
+        var result = await service.AddSKUPartEntryAsync(newSKUPartValues);
+        Assert.Equal(400, result.Error.ErrorCode);
+    }
 
     [Fact]
     public async Task DeleteSKUPartValue_ShouldDeleteSKUPartValue()
@@ -216,7 +237,22 @@ public class SKUPartConfigServiceTests
         var service = new SKUPartConfigService(unitOfWork);
 
         // Act & Assert
+
         var result = await service.DeleteSKUPartEntryAsync(1);
+        Assert.Equal(400, result.Error.ErrorCode);
+    }
+    [Fact]
+    public async Task DeleteSKUPartValue_ShouldThrowExceptionIfTryingToDeleteGeneric()
+    {
+        // Arrange
+        var unitOfWork = GetInMemoryUnitOfWork();
+        var service = new SKUPartConfigService(unitOfWork);
+        await service.AddSKUPartConfigAsync(unitOfWork.GetTestData_SKUPartConfig());
+
+        // Act & Assert
+        var config = unitOfWork.GetTestData_SKUPartConfig();
+        var genericEntry = await unitOfWork.SKUPartEntryRepository.FindAsync(sv => sv.UniqueCode == config.GetDefaultGenericCode());
+        var result = await service.DeleteSKUPartEntryAsync(genericEntry.FirstOrDefault()!.Id);
         Assert.Equal(400, result.Error.ErrorCode);
     }
 }
