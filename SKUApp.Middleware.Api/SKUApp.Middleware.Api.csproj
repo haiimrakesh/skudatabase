@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="SKUApp.Middleware.Api.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SKUApp.Domain.Services\SKUApp.Domain.Services.csproj" />
     <ProjectReference Include="..\SKUApp.Domain.Infrastructure.EntityFramework\SKUApp.Domain.Infrastructure.EntityFramework.csproj" />
   </ItemGroup>

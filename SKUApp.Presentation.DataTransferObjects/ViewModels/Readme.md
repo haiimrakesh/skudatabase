@@ -1,0 +1,1 @@
+View Model classes in this case are used to represent the domain entities to the presentation/API layer. This usually combines data from multiple related domain entities into one as per their relationship with each other.

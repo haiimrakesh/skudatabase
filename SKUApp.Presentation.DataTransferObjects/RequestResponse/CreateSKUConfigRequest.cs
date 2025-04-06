@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace SKUApp.Middleware.Api.DTOs;
+namespace SKUApp.Presentation.DataTransferObjects.RequestResponse;
 /// <summary>
 /// Represents a request to create a SKU configuration.
 /// </summary>

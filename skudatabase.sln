@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.Services.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Middleware.Api", "SKUApp.Middleware.Api\SKUApp.Middleware.Api.csproj", "{388C2E03-232B-4639-9AD9-A64DF858182C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Middleware.Api.IntegrationTests", "SKUApp.Middleware.Api.IntegrationTests\SKUApp.Middleware.Api.IntegrationTests.csproj", "{8B28B1B8-8B86-4E86-AFFD-FC2F77F249C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Presentation.DataTransferObjects", "SKUApp.Presentation.DataTransferObjects\SKUApp.Presentation.DataTransferObjects.csproj", "{4242381F-159C-4770-9EF9-D1D4E965FC8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +52,13 @@ Global
 		{388C2E03-232B-4639-9AD9-A64DF858182C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{388C2E03-232B-4639-9AD9-A64DF858182C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{388C2E03-232B-4639-9AD9-A64DF858182C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B28B1B8-8B86-4E86-AFFD-FC2F77F249C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B28B1B8-8B86-4E86-AFFD-FC2F77F249C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B28B1B8-8B86-4E86-AFFD-FC2F77F249C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B28B1B8-8B86-4E86-AFFD-FC2F77F249C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4242381F-159C-4770-9EF9-D1D4E965FC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4242381F-159C-4770-9EF9-D1D4E965FC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4242381F-159C-4770-9EF9-D1D4E965FC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4242381F-159C-4770-9EF9-D1D4E965FC8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

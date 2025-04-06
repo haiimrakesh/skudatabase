@@ -37,3 +37,9 @@ app.MapSKUPartConfigEndpoints();
 app.MapSKUPartEntryEndpoints();
 
 app.Run();
+
+public partial class Program
+{
+    // This partial class is used to separate the main method from the rest of the code.
+    // It allows for better organization and maintainability of the code.
+}

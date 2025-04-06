@@ -26,5 +26,11 @@ namespace SKUApp.Domain.Entities
         /// Gets or sets the sequence number for the SKU configuration.
         /// </summary>
         public int Sequence { get; set; }
+
+        /// <summary>
+        /// Space to describe the relationship between the SKU configuration and the SKU part configuration.
+        /// This could be used to provide additional context or information about the relationship.
+        /// </summary>
+        public string RelationshipDescription { get; set; } = string.Empty;
     }
 }

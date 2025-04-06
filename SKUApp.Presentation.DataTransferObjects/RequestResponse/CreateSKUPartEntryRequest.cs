@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SKUApp.Middleware.Api.DTOs
+namespace SKUApp.Presentation.DataTransferObjects.RequestResponse
 {
     /// <summary>
     /// Represents the SKU part values.
