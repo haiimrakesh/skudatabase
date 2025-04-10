@@ -7,7 +7,7 @@ public class SKUPartEntryViewModel
     /// <summary>
     /// Gets or sets the unique identifier for the SKU part value.
     /// </summary>
-    public int Id { get; set; }
+    public int SKUPartEntryId { get; set; }
 
     /// <summary>
     /// Gets or sets the unique code for the SKU part value.

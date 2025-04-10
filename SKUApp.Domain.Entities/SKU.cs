@@ -30,5 +30,5 @@ public class SKU
     /// Gets or sets the identifier for the skill configuration associated with the SKU.
     /// </summary>
     [Required]
-    public int SkillConfigId { get; set; }
+    public int SKUConfigId { get; set; }
 }

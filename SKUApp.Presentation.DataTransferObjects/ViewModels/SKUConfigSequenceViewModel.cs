@@ -30,4 +30,10 @@ public class SKUConfigSequenceViewModel
     /// Gets or sets the length of the SKU part.
     /// </summary>
     public int SKUPartLength { get; set; }
+
+    /// <summary>
+    /// Gets or sets the SKUPart Configuration ViewModel. It can be null and only be 
+    /// populated if full SKUConfig is requested.
+    /// </summary>
+    public SKUPartConfigViewModel? SKUPartConfig { get; set; }
 }
