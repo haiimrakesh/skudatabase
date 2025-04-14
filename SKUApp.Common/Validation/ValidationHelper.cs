@@ -11,4 +11,9 @@ public static class ValidationHelper
         validationResults = new List<ValidationResult>();
         return Validator.TryValidateObject(contextObject, validationContext, validationResults, true);
     }
+    public static bool Validate(object contextObject, Error ValidationError)
+    {
+        ValidationContext validationContext = new ValidationContext(contextObject);
+        return Validator.TryValidateObject(contextObject, validationContext, ValidationError.ValidationResults, true);
+    }
 }

@@ -3,9 +3,12 @@ namespace SKUApp.Domain.Services;
 using System;
 using System.Collections.Generic;
 using SKUApp.Domain.Entities;
-using SKUApp.Domain.Infrastructure.ErrorHandling;
+using SKUApp.Common.ErrorHandling;
 using SKUApp.Domain.Infrastructure.Services;
-using SKUApp.Domain.Infrastructure.UnitOfWork;
+using SKUApp.Domain.DataContracts;
+using SKUApp.Presentation.DataTransferObjects.ViewModels;
+using SKUApp.Presentation.DataTransferObjects.RequestResponse;
+using SKUApp.Common.Validation;
 
 public class SKUPartConfigService : ISKUPartConfigService
 {
@@ -14,32 +17,75 @@ public class SKUPartConfigService : ISKUPartConfigService
     {
         _unitOfWork = unitOfWork;
     }
-
-    public async Task<Result<SKUPartConfig>> AddSKUPartConfigAsync(SKUPartConfig sKUPartConfig)
+    public async Task<Result<SKUPartConfigViewModel>> AddSKUPartConfigAsync(CreateSKUPartConfigRequest sKUPartConfigRequest)
     {
         try
         {
-            sKUPartConfig.Id = 0;
-            sKUPartConfig.Name = sKUPartConfig.Name.Trim().ToUpper();
+            Error validationError = Error.ValidationFailures();
+            if (!ValidationHelper.Validate(sKUPartConfigRequest, validationError))
+            {
+                return validationError;
+            }
+
+            sKUPartConfigRequest.Name = sKUPartConfigRequest.Name.Trim().ToUpper();
             //Check if a sKUPartConfig with the same name exists
-            var exists = await _unitOfWork.SKUPartConfigRepository.FindAsync(s => s.Name == sKUPartConfig.Name);
+            var exists = await _unitOfWork.SKUPartConfigRepository.FindAsync(s => s.Name == sKUPartConfigRequest.Name);
             if (exists.Any())
             {
                 return Error.BadRequest("SKUPartConfig with the same name already exists.");
             }
+            var sKUPartConfig = new SKUPartConfig
+            {
+                Id = 0,
+                Name = sKUPartConfigRequest.Name,
+                Length = sKUPartConfigRequest.Length,
+                GenericName = sKUPartConfigRequest.GenericName,
+                Status = SKUConfigStatusEnum.Draft,
+                Description = sKUPartConfigRequest.Description,
+                IsAlphaNumeric = sKUPartConfigRequest.IsAlphaNumeric,
+                IsCaseSensitive = sKUPartConfigRequest.IsCaseSensitive,
+                IncludeSpacerAtTheEnd = sKUPartConfigRequest.IncludeSpacerAtTheEnd,
+                AllowPreceedingZero = sKUPartConfigRequest.AllowPreceedingZero,
+                RestrictConflictingLettersAndCharacters = sKUPartConfigRequest.RestrictConflictingLettersAndCharacters,
+            };
+
+            var defaultEntry = new SKUPartEntry
+            {
+                Id = 0,
+                SKUPartConfigId = sKUPartConfig.Id,
+                Name = sKUPartConfig.GenericName,
+                UniqueCode = sKUPartConfig.GetDefaultGenericCode()
+            };
             // Add the SKUPartConfig to the repository
             await _unitOfWork.SKUPartConfigRepository.AddAsync(sKUPartConfig);
             // Add the default Generic type to values. 
-            await _unitOfWork.SKUPartEntryRepository.AddAsync(
-                new SKUPartEntry
-                {
-                    SKUPartConfigId = sKUPartConfig.Id,
-                    Name = sKUPartConfig.GenericName,
-                    UniqueCode = sKUPartConfig.GetDefaultGenericCode()
-                });
+            await _unitOfWork.SKUPartEntryRepository.AddAsync(defaultEntry);
             await _unitOfWork.SaveChangesAsync();
 
-            return sKUPartConfig;
+            var vm = new SKUPartConfigViewModel
+            {
+                SKUPartConfigId = sKUPartConfig.Id,
+                SKUPartConfigName = sKUPartConfig.Name,
+                Length = sKUPartConfig.Length,
+                GenericName = sKUPartConfig.GenericName,
+                Status = sKUPartConfig.Status.ToString(),
+                Description = sKUPartConfig.Description,
+                IsAlphaNumeric = sKUPartConfig.IsAlphaNumeric,
+                IsCaseSensitive = sKUPartConfig.IsCaseSensitive,
+                IncludeSpacerAtTheEnd = sKUPartConfig.IncludeSpacerAtTheEnd,
+                AllowPreceedingZero = sKUPartConfig.AllowPreceedingZero,
+                RestrictConflictingLettersAndCharacters = sKUPartConfig.RestrictConflictingLettersAndCharacters
+            };
+
+            vm.SKUPartEntries.Add(new SKUPartEntryViewModel
+            {
+                SKUPartEntryId = defaultEntry.Id,
+                SKUPartConfigId = defaultEntry.Id,
+                Name = sKUPartConfig.GenericName,
+                UniqueCode = defaultEntry.UniqueCode
+            });
+
+            return vm;
         }
         catch (Exception ex)
         {
@@ -47,7 +93,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartConfig>> DeleteSKUPartConfigAsync(int id)
+    public async Task<Result<SKUPartConfigViewModel>> DeleteSKUPartConfigAsync(int id)
     {
         try
         {
@@ -85,7 +131,20 @@ public class SKUPartConfigService : ISKUPartConfigService
             await _unitOfWork.SKUPartConfigRepository.DeleteAsync(sKUPartConfig);
             await _unitOfWork.SaveChangesAsync();
 
-            return sKUPartConfig;
+            return new SKUPartConfigViewModel
+            {
+                SKUPartConfigId = sKUPartConfig.Id,
+                SKUPartConfigName = sKUPartConfig.Name,
+                Length = sKUPartConfig.Length,
+                GenericName = sKUPartConfig.GenericName,
+                Status = sKUPartConfig.Status.ToString(),
+                Description = sKUPartConfig.Description,
+                IsAlphaNumeric = sKUPartConfig.IsAlphaNumeric,
+                IsCaseSensitive = sKUPartConfig.IsCaseSensitive,
+                IncludeSpacerAtTheEnd = sKUPartConfig.IncludeSpacerAtTheEnd,
+                AllowPreceedingZero = sKUPartConfig.AllowPreceedingZero,
+                RestrictConflictingLettersAndCharacters = sKUPartConfig.RestrictConflictingLettersAndCharacters
+            };
         }
         catch (Exception ex)
         {
@@ -93,91 +152,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartEntry>> AddSKUPartEntryAsync(SKUPartEntry sKUPartEntry)
-    {
-        try
-        {
-            // Cannot add if the SKUPartConfig is active
-            // Check if the SKUPartConfig is active
-            var sKUPartConfig = await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(sKUPartEntry.SKUPartConfigId);
-            if (sKUPartConfig == null)
-            {
-                return Error.NotFound("SKUPartConfig not found.");
-            }
-
-            if (sKUPartConfig.Status == SKUConfigStatusEnum.Active)
-            {
-                return Error.BadRequest("Cannot add to a active SKUPartConfig.");
-            }
-
-            string uniqueCode = sKUPartEntry.UniqueCode;
-            if (uniqueCode.Length != sKUPartConfig.Length)
-            {
-                return Error.BadRequest($"UniqueCode length {uniqueCode.Length} does not match the SKUPartConfig length {sKUPartConfig.Length}.");
-            }
-            int skupartConfigId = sKUPartEntry.SKUPartConfigId;
-            // Check if the SKUPartValue exists by UniqueCode
-            var exists = await _unitOfWork.SKUPartEntryRepository.GetSKUPartEntriesByUniqueCode(uniqueCode, skupartConfigId);
-            if (exists.Any())
-            {
-                return Error.BadRequest("SKUPartValue with the same UniqueCode already exists.");
-            }
-
-            // Add the SKUPartValues to the repository
-            await _unitOfWork.SKUPartEntryRepository.AddAsync(sKUPartEntry);
-            await _unitOfWork.SaveChangesAsync();
-
-            return sKUPartEntry;
-        }
-        catch (Exception ex)
-        {
-            return Error.InternalServerError(ex.Message);
-        }
-    }
-
-    public async Task<Result<SKUPartEntry>> DeleteSKUPartEntryAsync(int id)
-    {
-        try
-        {
-            // Get the SKUPartValues from the repository
-            var sKUPartValues = await _unitOfWork.SKUPartEntryRepository.GetByIdAsync(id);
-            // Perform a null check
-            if (sKUPartValues == null)
-            {
-                return Error.NotFound("SKUPartValues not found.");
-            }
-            // Cannot delete if the SKUPartConfig is active
-            // Check if the SKUPartConfig is active
-            var sKUPartConfig = await _unitOfWork.SKUPartConfigRepository.GetByIdAsync(sKUPartValues.SKUPartConfigId);
-            // Perform a null check
-            if (sKUPartConfig == null)
-            {
-                return Error.NotFound("SKUPartConfig not found.");
-            }
-            if (sKUPartConfig.Status == SKUConfigStatusEnum.Active)
-            {
-                return Error.BadRequest("Cannot delete an active SKUPartConfig.");
-            }
-
-            // Cannot delete Generic SKUPartEntry
-            if (sKUPartValues.UniqueCode == sKUPartConfig.GetDefaultGenericCode())
-            {
-                return Error.BadRequest("Cannot delete Generic SKUPartEntry.");
-            }
-
-            // Remove the SKUPartValues from the repository
-            await _unitOfWork.SKUPartEntryRepository.DeleteAsync(sKUPartValues);
-            await _unitOfWork.SaveChangesAsync();
-
-            return sKUPartValues;
-        }
-        catch (Exception ex)
-        {
-            return Error.InternalServerError(ex.Message);
-        }
-    }
-
-    public async Task<Result<IEnumerable<SKUPartConfig>>> GetAllSKUPartConfigsAsync()
+    public async Task<Result<IEnumerable<SKUPartConfigViewModel>>> GetAllSKUPartConfigsAsync()
     {
         try
         {
@@ -186,7 +161,21 @@ public class SKUPartConfigService : ISKUPartConfigService
             {
                 return Error.NotFound("No SKUPartConfigs found.");
             }
-            return list.ToList();
+            return list.Select(pc => new SKUPartConfigViewModel
+            {
+                SKUPartConfigId = pc.Id,
+                SKUPartConfigName = pc.Name,
+                Length = pc.Length,
+                GenericName = pc.GenericName,
+                Status = pc.Status.ToString(),
+                Description = pc.Description,
+                IsAlphaNumeric = pc.IsAlphaNumeric,
+                IsCaseSensitive = pc.IsCaseSensitive,
+                IncludeSpacerAtTheEnd = pc.IncludeSpacerAtTheEnd,
+                AllowPreceedingZero = pc.AllowPreceedingZero,
+                RestrictConflictingLettersAndCharacters = pc.RestrictConflictingLettersAndCharacters
+            }
+            ).ToList();
         }
         catch (Exception ex)
         {
@@ -194,7 +183,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartConfig>> GetSKUPartConfigByIdAsync(int id)
+    public async Task<Result<SKUPartConfigViewModel>> GetSKUPartConfigByIdAsync(int id)
     {
         try
         {
@@ -203,7 +192,20 @@ public class SKUPartConfigService : ISKUPartConfigService
             {
                 return Error.NotFound("SKUPartConfig not found.");
             }
-            return sKUPartConfig;
+            return new SKUPartConfigViewModel
+            {
+                SKUPartConfigId = sKUPartConfig.Id,
+                SKUPartConfigName = sKUPartConfig.Name,
+                Length = sKUPartConfig.Length,
+                GenericName = sKUPartConfig.GenericName,
+                Status = sKUPartConfig.Status.ToString(),
+                Description = sKUPartConfig.Description,
+                IsAlphaNumeric = sKUPartConfig.IsAlphaNumeric,
+                IsCaseSensitive = sKUPartConfig.IsCaseSensitive,
+                IncludeSpacerAtTheEnd = sKUPartConfig.IncludeSpacerAtTheEnd,
+                AllowPreceedingZero = sKUPartConfig.AllowPreceedingZero,
+                RestrictConflictingLettersAndCharacters = sKUPartConfig.RestrictConflictingLettersAndCharacters
+            };
         }
         catch (Exception ex)
         {
@@ -227,4 +229,13 @@ public class SKUPartConfigService : ISKUPartConfigService
             return Error.InternalServerError(ex.Message);
         }
     }
+
+    public Task<Result<SKUPartConfigViewModel>> GetSKUPartConfigByIdAsync(int id, bool includeSKUPartEntries = false)
+    {
+        throw new NotImplementedException();
+    }
+
+
+
+
 }

@@ -1,11 +1,12 @@
-﻿namespace SKUApp.Common.ErrorHandling
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SKUApp.Common.ErrorHandling
 {
     public class Result<T>
     {
         public bool IsSuccess { get; private set; }
         public T? Value { get; private set; }
         public Error Error { get; private set; }
-
         protected Result(bool isSuccess, T? value, Error error)
         {
             IsSuccess = isSuccess;

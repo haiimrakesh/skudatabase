@@ -1,4 +1,3 @@
-using SKUApp.Domain.Entities;
 namespace SKUApp.Domain.DataContracts;
 
 public interface ISKUUnitOfWork : IDisposable

@@ -1,7 +1,8 @@
 using SKUApp.Domain.Entities;
-using SKUApp.Domain.Infrastructure.ErrorHandling;
+using SKUApp.Common.ErrorHandling;
 using SKUApp.Domain.Infrastructure.Services;
-using SKUApp.Domain.Infrastructure.UnitOfWork;
+using SKUApp.Domain.DataContracts;
+using SKUApp.Presentation.DataTransferObjects.ViewModels;
 
 namespace SKUApp.Domain.Services;
 
@@ -24,6 +25,11 @@ public class SKUService : ISKUService
         {
             return Error.InternalServerError(ex.Message);
         }
+    }
+
+    public Task<Result<SKUViewModel>> AddSKUAsync(CreateSKURequest skuConfig)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<Result<SKU>> DeleteSKUAsync(int id)
@@ -77,5 +83,25 @@ public class SKUService : ISKUService
         {
             return Error.InternalServerError(ex.Message);
         }
+    }
+
+    public Task<Result<SKUViewModel>> GetSKUByIdAsync(int id, bool includeSKUPartConfig = false)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Result<SKUViewModel>> UpdateSKUAsync(UpdateSKURequest skuConfig)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<Result<SKUViewModel>> ISKUService.DeleteSKUAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<Result<IEnumerable<SKUViewModel>>> ISKUService.GetAllSKUsAsync()
+    {
+        throw new NotImplementedException();
     }
 }

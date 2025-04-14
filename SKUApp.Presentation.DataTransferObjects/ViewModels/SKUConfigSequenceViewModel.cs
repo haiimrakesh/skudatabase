@@ -31,6 +31,8 @@ public class SKUConfigSequenceViewModel
     /// </summary>
     public int SKUPartLength { get; set; }
 
+    public string RelationshipDescription { get; set; } = string.Empty;
+
     /// <summary>
     /// Gets or sets the SKUPart Configuration ViewModel. It can be null and only be 
     /// populated if full SKUConfig is requested.

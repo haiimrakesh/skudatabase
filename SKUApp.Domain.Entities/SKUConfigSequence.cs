@@ -32,5 +32,8 @@ namespace SKUApp.Domain.Entities
         /// This could be used to provide additional context or information about the relationship.
         /// </summary>
         public string RelationshipDescription { get; set; } = string.Empty;
+
+        public virtual SKUPartConfig? SKUPartConfig { get; set; } = null!;
+        public virtual SKUConfig? SKUConfig { get; set; } = null!;
     }
 }

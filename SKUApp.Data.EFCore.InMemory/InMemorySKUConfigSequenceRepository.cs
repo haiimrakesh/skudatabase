@@ -12,12 +12,17 @@ public class InMemorySKUConfigSequenceRepository : GenericRepository<SKUConfigSe
 
     public async Task<IEnumerable<SKUConfigSequence>> GetSKUConfigSequenceByConfigIdAsync(int skyConfigId)
     {
-        return await _context.SKUConfigSequences.Where(x => x.SKUConfigId == skyConfigId).ToListAsync();
+        return await _context.SKUConfigSequences
+        .Include(x => x.SKUConfig)
+        .Include(x => x.SKUPartConfig)
+        .Where(x => x.SKUConfigId == skyConfigId).ToListAsync();
     }
 
     public async Task<IEnumerable<SKUConfigSequence>> GetSKUConfigSequenceByPartConfigIdAsync(int skyConfigId)
     {
-        return await _context.SKUConfigSequences.Where(x => x.SKUPartConfigId == skyConfigId).ToListAsync();
+        return await _context.SKUConfigSequences
+        .Include(x => x.SKUConfig)
+        .Include(x => x.SKUPartConfig)
+        .Where(x => x.SKUPartConfigId == skyConfigId).ToListAsync();
     }
-
 }
