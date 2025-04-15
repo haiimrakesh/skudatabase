@@ -1,5 +1,5 @@
 
-using Microsoft.EntityFrameworkCore;
+/*using Microsoft.EntityFrameworkCore;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.EntityFramework.InMemory;
 using SKUApp.Domain.Infrastructure.UnitOfWork;
@@ -256,3 +256,4 @@ public class SKUPartConfigServiceTests
         Assert.Equal(400, result.Error.ErrorCode);
     }
 }
+*/

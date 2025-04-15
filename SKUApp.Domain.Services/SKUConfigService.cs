@@ -139,7 +139,7 @@ public class SKUConfigService : ISKUConfigService
                 return Error.NotFound("SKUConfig not found");
             }
 
-            if (existing.Status == SKUConfigStatusEnum.Draft)
+            if (existing.Status != SKUConfigStatusEnum.Draft)
             {
                 return Error.BadRequest("SKUConfig must be in Draft status to update");
             }

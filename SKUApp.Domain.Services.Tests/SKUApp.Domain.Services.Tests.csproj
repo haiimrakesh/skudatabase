@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
@@ -25,9 +25,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SKUApp.Domain.Entities\SKUApp.Domain.Entities.csproj" />
-    <ProjectReference Include="..\SKUApp.Domain.Infrastructure\SKUApp.Domain.Infrastructure.csproj" />
-    <ProjectReference Include="..\SKUApp.Domain.Infrastructure.EntityFramework\SKUApp.Domain.Infrastructure.EntityFramework.csproj" />
     <ProjectReference Include="..\SKUApp.Domain.Services\SKUApp.Domain.Services.csproj" />
+    <ProjectReference Include="..\SKUApp.Common\SKUApp.Common.csproj" />
+    <ProjectReference Include="..\SKUApp.Data.EFCore.InMemory\SKUApp.Data.EFCore.InMemory.csproj" />
+    <ProjectReference Include="..\SKUApp.Domain.ServiceContracts\SKUApp.Domain.ServiceContracts.csproj" />
+    <ProjectReference Include="..\SKUApp.Domain.DataContracts\SKUApp.Domain.DataContracts.csproj" />
   </ItemGroup>
 
 </Project>
