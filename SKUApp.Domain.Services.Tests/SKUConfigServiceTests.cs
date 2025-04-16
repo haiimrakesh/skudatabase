@@ -58,7 +58,13 @@ public class SKUConfigServiceTests
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal(422, result.Error.ErrorCode);
-        Assert.Contains("Name", result.Error.Message);
+        var vrMessage = result.Error.ValidationResults.FirstOrDefault(vr => vr.MemberNames.Contains("Name"));
+        if (vrMessage == null)
+        {
+            Assert.NotNull(vrMessage);
+            return;
+        }
+        Assert.Contains("Name", vrMessage.ErrorMessage);
     }
 
     [Fact]
@@ -80,7 +86,13 @@ public class SKUConfigServiceTests
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal(422, result.Error.ErrorCode);
-        Assert.Contains("Length", result.Error.Message);
+        var vrMessage = result.Error.ValidationResults.FirstOrDefault(vr => vr.MemberNames.Contains("Length"));
+        if (vrMessage == null)
+        {
+            Assert.NotNull(vrMessage);
+            return;
+        }
+        Assert.Contains("Length", vrMessage.ErrorMessage);
     }
 
     [Fact]
@@ -102,7 +114,13 @@ public class SKUConfigServiceTests
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal(422, result.Error.ErrorCode);
-        Assert.Contains("Description", result.Error.Message);
+        var vrMessage = result.Error.ValidationResults.FirstOrDefault(vr => vr.MemberNames.Contains("Description"));
+        if (vrMessage == null)
+        {
+            Assert.NotNull(vrMessage);
+            return;
+        }
+        Assert.Contains("Description", vrMessage.ErrorMessage);
     }
 
     [Fact]
