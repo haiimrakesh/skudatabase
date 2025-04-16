@@ -2,7 +2,7 @@ using SKUApp.Presentation.DataTransferObjects.ViewModels;
 using SKUApp.Presentation.DataTransferObjects.RequestResponse;
 using SKUApp.Common.ErrorHandling;
 
-namespace SKUApp.Domain.Infrastructure.Services;
+namespace SKUApp.Domain.ServiceContracts;
 
 /// <summary>
 /// Interface for SKUPartConfigService.

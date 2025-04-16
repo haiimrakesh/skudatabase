@@ -1,11 +1,11 @@
 using SKUApp.Common.ErrorHandling;
 using SKUApp.Domain.DataContracts;
-using SKUApp.Domain.Infrastructure.Services;
 using SKUApp.Presentation.DataTransferObjects.RequestResponse;
 using SKUApp.Presentation.DataTransferObjects.ViewModels;
 using SKUApp.Domain.Entities;
 using SKUApp.Common.Validation;
 using SKUApp.Domain.Services;
+using SKUApp.Domain.ServiceContracts;
 
 public class SKUConfigSequenceService : ISKUConfigSequenceService
 {

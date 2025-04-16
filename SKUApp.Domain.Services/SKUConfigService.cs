@@ -1,10 +1,10 @@
 using SKUApp.Domain.Entities;
 using SKUApp.Common.ErrorHandling;
-using SKUApp.Domain.Infrastructure.Services;
 using SKUApp.Domain.DataContracts;
 using SKUApp.Presentation.DataTransferObjects.ViewModels;
 using SKUApp.Presentation.DataTransferObjects.RequestResponse;
 using SKUApp.Common.Validation;
+using SKUApp.Domain.ServiceContracts;
 
 namespace SKUApp.Domain.Services;
 

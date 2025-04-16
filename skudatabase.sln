@@ -5,10 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.Entities", "SKUApp.Domain.Entities\SKUApp.Domain.Entities.csproj", "{FAF79D3A-73D3-4A68-8731-6F9515F88CE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.Infrastructure", "SKUApp.Domain.Infrastructure\SKUApp.Domain.Infrastructure.csproj", "{FDE8E453-5CE5-421B-8651-55668815E042}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.Infrastructure.EntityFramework", "SKUApp.Domain.Infrastructure.EntityFramework\SKUApp.Domain.Infrastructure.EntityFramework.csproj", "{0F551246-4E94-44E4-BED7-6FB79650B802}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.Services", "SKUApp.Domain.Services\SKUApp.Domain.Services.csproj", "{5791BA06-DDEA-48A0-86FB-533B8B8C3E63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.Services.Tests", "SKUApp.Domain.Services.Tests\SKUApp.Domain.Services.Tests.csproj", "{62CCB3B7-CF7B-4879-B6C2-F1A03D4A0ECC}"
@@ -40,14 +36,6 @@ Global
 		{FAF79D3A-73D3-4A68-8731-6F9515F88CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAF79D3A-73D3-4A68-8731-6F9515F88CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAF79D3A-73D3-4A68-8731-6F9515F88CE8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDE8E453-5CE5-421B-8651-55668815E042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDE8E453-5CE5-421B-8651-55668815E042}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDE8E453-5CE5-421B-8651-55668815E042}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDE8E453-5CE5-421B-8651-55668815E042}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F551246-4E94-44E4-BED7-6FB79650B802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F551246-4E94-44E4-BED7-6FB79650B802}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F551246-4E94-44E4-BED7-6FB79650B802}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F551246-4E94-44E4-BED7-6FB79650B802}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5791BA06-DDEA-48A0-86FB-533B8B8C3E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5791BA06-DDEA-48A0-86FB-533B8B8C3E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5791BA06-DDEA-48A0-86FB-533B8B8C3E63}.Release|Any CPU.ActiveCfg = Release|Any CPU

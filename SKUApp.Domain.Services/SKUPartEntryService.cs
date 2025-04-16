@@ -2,7 +2,7 @@ using SKUApp.Common.ErrorHandling;
 using SKUApp.Common.Validation;
 using SKUApp.Domain.DataContracts;
 using SKUApp.Domain.Entities;
-using SKUApp.Domain.Infrastructure.Services;
+using SKUApp.Domain.ServiceContracts;
 using SKUApp.Presentation.DataTransferObjects.RequestResponse;
 using SKUApp.Presentation.DataTransferObjects.ViewModels;
 

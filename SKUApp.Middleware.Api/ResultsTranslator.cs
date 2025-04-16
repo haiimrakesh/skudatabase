@@ -1,6 +1,5 @@
 using System.Net;
-using SKUApp.Domain.Infrastructure.ErrorHandling;
-
+using SKUApp.Common.ErrorHandling;
 namespace SKUApp.Middleware.Api
 {
     public static class ResultsTranslator
@@ -52,6 +51,17 @@ namespace SKUApp.Middleware.Api
                     transformed.Add(transform(item));
                 }
                 return Results.Ok(transformed);
+            }
+            else
+            {
+                return handleError(result);
+            }
+        }
+        public static IResult TranslateResultFromEnumerable<T>(Result<IEnumerable<T>> result)
+        {
+            if (result.IsSuccess)
+            {
+                return Results.Ok(result.Value);
             }
             else
             {

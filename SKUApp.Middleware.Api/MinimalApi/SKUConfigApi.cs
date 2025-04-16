@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using SKUApp.Common.ErrorHandling;
+using SKUApp.Common.Validation;
 using SKUApp.Domain.Entities;
-using SKUApp.Domain.Infrastructure.ErrorHandling;
-using SKUApp.Domain.Infrastructure.Services;
-using SKUApp.Middleware.Api.DTOs;
+using SKUApp.Domain.ServiceContracts;
+using SKUApp.Presentation.DataTransferObjects.RequestResponse;
+using SKUApp.Presentation.DataTransferObjects.ViewModels;
 
 namespace SKUApp.Middleware.Api;
 
@@ -11,18 +13,6 @@ public static class SKUConfigApi
 {
     public static void MapSKUConfigEndpoints(this WebApplication app)
     {
-        Func<SKUConfig, SKUConfigResponse> transformMethod = (SKUConfig config) =>
-        {
-            return new SKUConfigResponse
-            {
-                Id = config.Id,
-                Name = config.Name,
-                Length = config.Length,
-                Status = config.Status.ToString(),
-                Description = config.Description
-            };
-        };
-
         _ = app.MapGet("/api/skuconfig/{Id}", async (HttpContext context, int Id) =>
         {
             ISKUConfigService? sKUConfigService = context.RequestServices.GetService<ISKUConfigService>();
@@ -31,17 +21,7 @@ public static class SKUConfigApi
                 return Results.Problem("Failed to retrieve SKUPartConfigService.");
             }
 
-            Result<SKUConfig> sKUConfigResult = await sKUConfigService.GetSKUConfigByIdAsync(Id);
-            if (!sKUConfigResult.IsSuccess)
-            {
-                return ResultsTranslator.TranslateResult(sKUConfigResult, transformMethod);
-            }
-
-            //resolve SKUConfigSequenceResponse
-            List<SKUConfigSequenceResponse> skuConfigSequenceResponses = new List<SKUConfigSequenceResponse>();
-
-            return ResultsTranslator.TranslateResult(
-                sKUConfigResult, transformMethod);
+            return ResultsTranslator.TranslateResult(await sKUConfigService.GetSKUConfigByIdAsync(Id));
 
         }).WithTags("SKUConfig").WithName("GetSKUConfigById").WithOpenApi();
 
@@ -54,8 +34,8 @@ public static class SKUConfigApi
             }
 
             return ResultsTranslator.TranslateResult(
-                await sKUConfigService.ActivateSKUConfigAsync(Id),
-                transformMethod);
+                await sKUConfigService.ActivateSKUConfigAsync(Id)
+                );
         }).WithTags("SKUConfig").WithName("ActivateSKUConfigById").WithOpenApi();
 
         _ = app.MapPost("/api/skuconfig/deactivate/{Id}", async (HttpContext context, int Id) =>
@@ -67,8 +47,8 @@ public static class SKUConfigApi
             }
 
             return ResultsTranslator.TranslateResult(
-                await sKUConfigService.DeactivateSKUConfigAsync(Id),
-                transformMethod);
+                await sKUConfigService.DeactivateSKUConfigAsync(Id)
+                );
         }).WithTags("SKUConfig").WithName("DeactivateSKUConfigById").WithOpenApi();
 
         _ = app.MapGet("/api/skuconfig", async (HttpContext context) =>
@@ -80,8 +60,8 @@ public static class SKUConfigApi
             }
 
             return ResultsTranslator.TranslateResultFromEnumerable(
-                await sKUConfigService.GetAllSKUConfigsAsync(),
-                transformMethod);
+                await sKUConfigService.GetAllSKUConfigsAsync()
+                );
         }).WithTags("SKUConfig").WithName("GetSKUConfig").WithOpenApi();
 
         _ = app.MapPost("/api/skuconfig", async (HttpContext context, CreateSKUConfigRequest config) =>
@@ -98,17 +78,9 @@ public static class SKUConfigApi
                 return Results.Problem("Failed to retrieve SKUPartConfigService.");
             }
 
-            SKUConfig sKUConfig = new SKUConfig
-            {
-                Id = 0,
-                Name = config.Name,
-                Description = config.Description,
-                Length = config.Length,
-                Status = SKUConfigStatusEnum.Draft
-            };
             return ResultsTranslator.TranslateResult(
-                await sKUConfigService.AddSKUConfigAsync(sKUConfig),
-                transformMethod);
+                await sKUConfigService.AddSKUConfigAsync(config)
+                );
         }).WithTags("SKUConfig").WithName("PostSKUConfig").WithOpenApi();
 
         _ = app.MapDelete("/api/skuconfig/{Id}", async (HttpContext context, int Id) =>
@@ -119,38 +91,9 @@ public static class SKUConfigApi
                 return Results.Problem("Failed to retrieve SKUPartConfigService.");
             }
             return ResultsTranslator.TranslateResult(
-                await sKUConfigService.DeleteSKUConfigAsync(Id),
-                transformMethod);
+                await sKUConfigService.DeleteSKUConfigAsync(Id)
+                );
 
         }).WithTags("SKUConfig").WithName("DeleteSKUConfig").WithOpenApi();
-
-        _ = app.MapPost("/api/skuconfig/sequence/{SkuConfigId}/{SkuPartConfigId}", async (HttpContext context, int SkuConfigId, int SkuPartConfigId) =>
-        {
-            ISKUConfigService? sKUConfigService = context.RequestServices.GetService<ISKUConfigService>();
-            if (sKUConfigService == null)
-            {
-                return Results.Problem("Failed to retrieve SKUPartConfigService.");
-            }
-            return ResultsTranslator.TranslateResult(
-                await sKUConfigService.AddSKUSequenceAsync(new SKUConfigSequence()
-                {
-                    Id = 0,
-                    SKUConfigId = SkuConfigId,
-                    SKUPartConfigId = SkuPartConfigId
-                }));
-
-        }).WithTags("SKUConfigSequence").WithName("SKUConfigAddSequence").WithOpenApi();
-
-        _ = app.MapPost("/api/skuconfig/sequence/{Id}", async (HttpContext context, int Id) =>
-        {
-            ISKUConfigService? sKUConfigService = context.RequestServices.GetService<ISKUConfigService>();
-            if (sKUConfigService == null)
-            {
-                return Results.Problem("Failed to retrieve SKUPartConfigService.");
-            }
-            return ResultsTranslator.TranslateResult(
-                await sKUConfigService.DeleteSKUSequenceAsync(Id));
-
-        }).WithTags("SKUConfigSequence").WithName("SKUConfigDeleteSequence").WithOpenApi();
     }
 }

@@ -1,6 +1,7 @@
-using SKUApp.Domain.Infrastructure.EntityFramework.InMemory;
-using SKUApp.Domain.Infrastructure.Services;
-using SKUApp.Domain.Infrastructure.UnitOfWork;
+
+using SKUApp.Data.EFCore.InMemory;
+using SKUApp.Domain.DataContracts;
+using SKUApp.Domain.ServiceContracts;
 using SKUApp.Domain.Services;
 using SKUApp.Middleware.Api;
 
@@ -33,8 +34,8 @@ var summaries = new[]
 };
 
 app.MapSKUConfigEndpoints();
-app.MapSKUPartConfigEndpoints();
-app.MapSKUPartEntryEndpoints();
+//app.MapSKUPartConfigEndpoints();
+//app.MapSKUPartEntryEndpoints();
 
 app.Run();
 

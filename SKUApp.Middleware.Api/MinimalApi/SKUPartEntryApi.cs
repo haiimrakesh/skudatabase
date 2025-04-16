@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+/*using System.ComponentModel.DataAnnotations;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.Infrastructure.Services;
 using SKUApp.Middleware.Api.DTOs;
@@ -70,3 +70,5 @@ public static class SKUPartValueApi
         }).WithTags("SKUPartEntry").WithName("DeleteSKUPartEntry").WithOpenApi();
     }
 }
+
+*/

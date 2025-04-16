@@ -17,7 +17,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SKUApp.Domain.Services\SKUApp.Domain.Services.csproj" />
-    <ProjectReference Include="..\SKUApp.Domain.Infrastructure.EntityFramework\SKUApp.Domain.Infrastructure.EntityFramework.csproj" />
+    <ProjectReference Include="..\SKUApp.Data.EFCore.InMemory\SKUApp.Data.EFCore.InMemory.csproj" />
+    <ProjectReference Include="..\SKUApp.Domain.DataContracts\SKUApp.Domain.DataContracts.csproj" />
+    <ProjectReference Include="..\SKUApp.Domain.ServiceContracts\SKUApp.Domain.ServiceContracts.csproj" />
+    <ProjectReference Include="..\SKUApp.Common\SKUApp.Common.csproj" />
+    <ProjectReference Include="..\SKUApp.Presentation.DataTransferObjects\SKUApp.Presentation.DataTransferObjects.csproj" />
   </ItemGroup>
 
 </Project>
