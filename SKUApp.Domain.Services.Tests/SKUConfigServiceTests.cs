@@ -68,6 +68,63 @@ public class SKUConfigServiceTests
     }
 
     [Fact]
+    public async Task AddSKUConfig_ShouldReturnErrorIfNameIsLessThan3Chars()
+    {
+        // Arrange
+        var unitOfWork = GetInMemoryUnitOfWork();
+        var service = new SKUConfigService(unitOfWork);
+        var request = new CreateSKUConfigRequest
+        {
+            Name = "xx",
+            Description = "Test Description",
+            Length = 10
+        };
+
+        // Act
+        var result = await service.AddSKUConfigAsync(request);
+
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(422, result.Error.ErrorCode);
+        var vrMessage = result.Error.ValidationResults.FirstOrDefault(vr => vr.MemberNames.Contains("Name"));
+        if (vrMessage == null)
+        {
+            Assert.NotNull(vrMessage);
+            return;
+        }
+        Assert.Contains("Name", vrMessage.ErrorMessage);
+    }
+
+    
+    [Fact]
+    public async Task AddSKUConfig_ShouldReturnErrorIfNameIsMoreThan30Chars()
+    {
+        // Arrange
+        var unitOfWork = GetInMemoryUnitOfWork();
+        var service = new SKUConfigService(unitOfWork);
+        var request = new CreateSKUConfigRequest
+        {
+            Name = "LengthIsMoreThan25Characters_1234567890",
+            Description = "Test Description",
+            Length = 10
+        };
+
+        // Act
+        var result = await service.AddSKUConfigAsync(request);
+
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(422, result.Error.ErrorCode);
+        var vrMessage = result.Error.ValidationResults.FirstOrDefault(vr => vr.MemberNames.Contains("Name"));
+        if (vrMessage == null)
+        {
+            Assert.NotNull(vrMessage);
+            return;
+        }
+        Assert.Contains("Name", vrMessage.ErrorMessage);
+    }
+
+    [Fact]
     public async Task AddSKUConfig_ShouldReturnErrorIfLengthIsInvalid()
     {
         // Arrange
