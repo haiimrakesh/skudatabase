@@ -17,7 +17,7 @@ public class SKUPartConfigService : ISKUPartConfigService
     {
         _unitOfWork = unitOfWork;
     }
-    public async Task<Result<SKUPartConfigViewModel>> AddSKUPartConfigAsync(CreateSKUPartConfigRequest sKUPartConfigRequest)
+    public async Task<ServiceResult<SKUPartConfigViewModel>> AddSKUPartConfigAsync(CreateSKUPartConfigRequest sKUPartConfigRequest)
     {
         try
         {
@@ -93,7 +93,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartConfigViewModel>> DeleteSKUPartConfigAsync(int id)
+    public async Task<ServiceResult<SKUPartConfigViewModel>> DeleteSKUPartConfigAsync(int id)
     {
         try
         {
@@ -152,7 +152,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<IEnumerable<SKUPartConfigViewModel>>> GetAllSKUPartConfigsAsync()
+    public async Task<ServiceResult<IEnumerable<SKUPartConfigViewModel>>> GetAllSKUPartConfigsAsync()
     {
         try
         {
@@ -183,7 +183,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<SKUPartConfigViewModel>> GetSKUPartConfigByIdAsync(int id)
+    public async Task<ServiceResult<SKUPartConfigViewModel>> GetSKUPartConfigByIdAsync(int id)
     {
         try
         {
@@ -213,7 +213,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public async Task<Result<IEnumerable<SKUPartEntry>>> GetSKUPartEntriesByPartConfigIdAsync(int partConfigId)
+    public async Task<ServiceResult<IEnumerable<SKUPartEntry>>> GetSKUPartEntriesByPartConfigIdAsync(int partConfigId)
     {
         try
         {
@@ -230,7 +230,7 @@ public class SKUPartConfigService : ISKUPartConfigService
         }
     }
 
-    public Task<Result<SKUPartConfigViewModel>> GetSKUPartConfigByIdAsync(int id, bool includeSKUPartEntries = false)
+    public Task<ServiceResult<SKUPartConfigViewModel>> GetSKUPartConfigByIdAsync(int id, bool includeSKUPartEntries = false)
     {
         throw new NotImplementedException();
     }

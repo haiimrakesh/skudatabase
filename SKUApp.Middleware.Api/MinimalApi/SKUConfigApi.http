@@ -1,0 +1,15 @@
+@SKUApp_Middleware_Api_HostAddress = http://localhost:5233
+
+GET {{SKUApp_Middleware_Api_HostAddress}}/api/skuconfig/1
+Accept: text/xml
+
+###
+
+POST {{SKUApp_Middleware_Api_HostAddress}}/api/skuconfig
+Content-Type: application/json
+
+{
+  "name": "first SKUConfig",
+  "description": "first SKUConfig description",
+  "length": 25
+}

@@ -1,10 +1,12 @@
 using System.Net;
 using SKUApp.Common.ErrorHandling;
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace SKUApp.Middleware.Api
 {
-    public static class ResultsTranslator
+    public partial class ResultsTranslator
     {
-        private static IResult handleError<T>(Result<T> result)
+        private static IResult handleError<T>(ServiceResult<T> result)
         {
             if (result.Error.ErrorCode == (int)HttpStatusCode.NotFound)
             {
@@ -19,7 +21,7 @@ namespace SKUApp.Middleware.Api
                 return Results.Problem(result.Error.Message);
             }
         }
-        public static IResult TranslateResult<T>(Result<T> result)
+        public static IResult TranslateResult<T>(ServiceResult<T> result)
         {
             if (result.IsSuccess)
             {
@@ -30,7 +32,7 @@ namespace SKUApp.Middleware.Api
                 return handleError(result);
             }
         }
-        public static IResult TranslateResult<T, RT>(Result<T> result, Func<T, RT> transform)
+        public static IResult TranslateResult<T, RT>(ServiceResult<T> result, Func<T, RT> transform)
         {
             if (result.IsSuccess)
             {
@@ -41,7 +43,7 @@ namespace SKUApp.Middleware.Api
                 return handleError(result);
             }
         }
-        public static IResult TranslateResultFromEnumerable<T, RT>(Result<IEnumerable<T>> result, Func<T, RT> transform)
+        public static IResult TranslateResultFromEnumerable<T, RT>(ServiceResult<IEnumerable<T>> result, Func<T, RT> transform)
         {
             if (result.IsSuccess)
             {
@@ -57,7 +59,7 @@ namespace SKUApp.Middleware.Api
                 return handleError(result);
             }
         }
-        public static IResult TranslateResultFromEnumerable<T>(Result<IEnumerable<T>> result)
+        public static IResult TranslateResultFromEnumerable<T>(ServiceResult<IEnumerable<T>> result)
         {
             if (result.IsSuccess)
             {

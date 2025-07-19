@@ -16,7 +16,7 @@ public class SKUConfigService : ISKUConfigService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<SKUConfigViewModel>> GetSKUConfigByIdAsync(int id, bool includeSKUPartConfig = false)
+    public async Task<ServiceResult<SKUConfigViewModel>> GetSKUConfigByIdAsync(int id, bool includeSKUPartConfig = false)
     {
         try
         {
@@ -55,7 +55,7 @@ public class SKUConfigService : ISKUConfigService
         }
 
     }
-    public async Task<Result<IEnumerable<SKUConfigViewModel>>> GetAllSKUConfigsAsync()
+    public async Task<ServiceResult<IEnumerable<SKUConfigViewModel>>> GetAllSKUConfigsAsync()
     {
         try
         {
@@ -79,7 +79,7 @@ public class SKUConfigService : ISKUConfigService
         }
 
     }
-    public async Task<Result<SKUConfigViewModel>> AddSKUConfigAsync(CreateSKUConfigRequest skuConfigRequest)
+    public async Task<ServiceResult<SKUConfigViewModel>> AddSKUConfigAsync(CreateSKUConfigRequest skuConfigRequest)
     {
         try
         {
@@ -122,7 +122,7 @@ public class SKUConfigService : ISKUConfigService
             return Error.InternalServerError(ex.Message);
         }
     }
-    public async Task<Result<SKUConfigViewModel>> UpdateSKUConfigAsync(UpdateSKUConfigRequest skuConfigRequest)
+    public async Task<ServiceResult<SKUConfigViewModel>> UpdateSKUConfigAsync(UpdateSKUConfigRequest skuConfigRequest)
     {
         try
         {
@@ -173,7 +173,7 @@ public class SKUConfigService : ISKUConfigService
             return Error.InternalServerError(ex.Message);
         }
     }
-    public async Task<Result<SKUConfigViewModel>> DeleteSKUConfigAsync(int id)
+    public async Task<ServiceResult<SKUConfigViewModel>> DeleteSKUConfigAsync(int id)
     {
         try
         {
@@ -209,7 +209,7 @@ public class SKUConfigService : ISKUConfigService
         }
 
     }
-    public async Task<Result<SKUConfigViewModel>> ActivateSKUConfigAsync(int id)
+    public async Task<ServiceResult<SKUConfigViewModel>> ActivateSKUConfigAsync(int id)
     {
         try
         {
@@ -258,7 +258,7 @@ public class SKUConfigService : ISKUConfigService
             return Error.InternalServerError(ex.Message);
         }
     }
-    public async Task<Result<SKUConfigViewModel>> DeactivateSKUConfigAsync(int id)
+    public async Task<ServiceResult<SKUConfigViewModel>> DeactivateSKUConfigAsync(int id)
     {
         try
         {

@@ -14,7 +14,7 @@ public class SKUService : ISKUService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<SKU>> AddSKUAsync(SKU sku)
+    public async Task<ServiceResult<SKU>> AddSKUAsync(SKU sku)
     {
         try
         {
@@ -27,12 +27,12 @@ public class SKUService : ISKUService
         }
     }
 
-    public Task<Result<SKUViewModel>> AddSKUAsync(CreateSKURequest skuConfig)
+    public Task<ServiceResult<SKUViewModel>> AddSKUAsync(CreateSKURequest skuConfig)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Result<SKU>> DeleteSKUAsync(int id)
+    public async Task<ServiceResult<SKU>> DeleteSKUAsync(int id)
     {
         try
         {
@@ -51,7 +51,7 @@ public class SKUService : ISKUService
         }
     }
 
-    public async Task<Result<IEnumerable<SKU>>> GetAllSKUsAsync()
+    public async Task<ServiceResult<IEnumerable<SKU>>> GetAllSKUsAsync()
     {
         try
         {
@@ -68,7 +68,7 @@ public class SKUService : ISKUService
         }
     }
 
-    public async Task<Result<SKU>> GetSKUByIdAsync(int id)
+    public async Task<ServiceResult<SKU>> GetSKUByIdAsync(int id)
     {
         try
         {
@@ -85,22 +85,22 @@ public class SKUService : ISKUService
         }
     }
 
-    public Task<Result<SKUViewModel>> GetSKUByIdAsync(int id, bool includeSKUPartConfig = false)
+    public Task<ServiceResult<SKUViewModel>> GetSKUByIdAsync(int id, bool includeSKUPartConfig = false)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<SKUViewModel>> UpdateSKUAsync(UpdateSKURequest skuConfig)
+    public Task<ServiceResult<SKUViewModel>> UpdateSKUAsync(UpdateSKURequest skuConfig)
     {
         throw new NotImplementedException();
     }
 
-    Task<Result<SKUViewModel>> ISKUService.DeleteSKUAsync(int id)
+    Task<ServiceResult<SKUViewModel>> ISKUService.DeleteSKUAsync(int id)
     {
         throw new NotImplementedException();
     }
 
-    Task<Result<IEnumerable<SKUViewModel>>> ISKUService.GetAllSKUsAsync()
+    Task<ServiceResult<IEnumerable<SKUViewModel>>> ISKUService.GetAllSKUsAsync()
     {
         throw new NotImplementedException();
     }

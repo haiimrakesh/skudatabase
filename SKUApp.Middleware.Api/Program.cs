@@ -16,6 +16,8 @@ builder.Services.AddScoped<ISKUConfigService, SKUConfigService>();
 builder.Services.AddScoped<ISKUPartConfigService, SKUPartConfigService>();
 builder.Services.AddScoped<ISKUService, SKUService>();
 builder.Services.AddScoped<ISKUUnitOfWork, InMemorySKUUnitOfWork>();
+builder.Services.AddControllers()
+    .AddXmlSerializerFormatters();
 
 var app = builder.Build();
 

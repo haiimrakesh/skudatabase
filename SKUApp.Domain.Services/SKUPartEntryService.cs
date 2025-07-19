@@ -13,7 +13,7 @@ public class SKUPartEntryService : ISKUPartEntryService
     {
         _unitOfWork = unitOfWork;
     }
-    public async Task<Result<SKUPartEntryViewModel>> AddSKUPartEntryAsync(CreateSKUPartEntryRequest sKUPartEntryRequest)
+    public async Task<ServiceResult<SKUPartEntryViewModel>> AddSKUPartEntryAsync(CreateSKUPartEntryRequest sKUPartEntryRequest)
     {
         try
         {
@@ -74,7 +74,7 @@ public class SKUPartEntryService : ISKUPartEntryService
         }
     }
 
-    public async Task<Result<SKUPartEntryViewModel>> DeleteSKUPartEntryAsync(int partEntryId)
+    public async Task<ServiceResult<SKUPartEntryViewModel>> DeleteSKUPartEntryAsync(int partEntryId)
     {
         try
         {
@@ -111,7 +111,7 @@ public class SKUPartEntryService : ISKUPartEntryService
         }
     }
 
-    public async Task<Result<SKUPartEntryViewModel>> UpdateSKUPartEntryAsync(UpdateSKUPartEntryRequest sKUPartEntryUpdateRequest)
+    public async Task<ServiceResult<SKUPartEntryViewModel>> UpdateSKUPartEntryAsync(UpdateSKUPartEntryRequest sKUPartEntryUpdateRequest)
     {
         try
         {

@@ -14,7 +14,7 @@ public class SKUConfigSequenceService : ISKUConfigSequenceService
     {
         _unitOfWork = unitOfWork;
     }
-    public async Task<Result<SKUConfigSequenceViewModel>> AddSKUSequenceAsync(CreateSKUConfigSequenceRequest skuSequenceRequest)
+    public async Task<ServiceResult<SKUConfigSequenceViewModel>> AddSKUSequenceAsync(CreateSKUConfigSequenceRequest skuSequenceRequest)
     {
         try
         {
@@ -71,7 +71,7 @@ public class SKUConfigSequenceService : ISKUConfigSequenceService
         }
     }
 
-    public async Task<Result<SKUConfigSequenceViewModel>> DeleteSKUSequenceAsync(int skuSequenceId)
+    public async Task<ServiceResult<SKUConfigSequenceViewModel>> DeleteSKUSequenceAsync(int skuSequenceId)
     {
         try
         {
@@ -108,7 +108,7 @@ public class SKUConfigSequenceService : ISKUConfigSequenceService
         }
     }
 
-    public async Task<Result<SKUConfigViewModel>> ReorderSKUSequenceAsync(ReOrderSKUConfigSequenceRequest reOrderSKUConfigSequenceRequest)
+    public async Task<ServiceResult<SKUConfigViewModel>> ReorderSKUSequenceAsync(ReOrderSKUConfigSequenceRequest reOrderSKUConfigSequenceRequest)
     {
         try
         {
@@ -157,7 +157,7 @@ public class SKUConfigSequenceService : ISKUConfigSequenceService
         }
     }
 
-    public async Task<Result<SKUConfigSequenceViewModel>> UpdateSKUSequenceAsync(UpdateSKUConfigSequenceRequest skuSequenceRequest)
+    public async Task<ServiceResult<SKUConfigSequenceViewModel>> UpdateSKUSequenceAsync(UpdateSKUConfigSequenceRequest skuSequenceRequest)
     {
         try
         {

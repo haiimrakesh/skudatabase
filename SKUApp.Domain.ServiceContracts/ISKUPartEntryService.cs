@@ -17,7 +17,7 @@ public interface ISKUPartEntryService
     /// <exception cref="InvalidOperationException">
     /// Thrown when the SKUPartConfig is active or a SKUPartValue with the same UniqueCode already exists.
     /// </exception>
-    Task<Result<SKUPartEntryViewModel>> AddSKUPartEntryAsync(CreateSKUPartEntryRequest sKUPartEntry);
+    Task<ServiceResult<SKUPartEntryViewModel>> AddSKUPartEntryAsync(CreateSKUPartEntryRequest sKUPartEntry);
     /// <summary>
     /// Update a SKUPartValue.
     /// </summary>
@@ -26,7 +26,7 @@ public interface ISKUPartEntryService
     /// <exception cref="InvalidOperationException">
     /// Thrown when the SKUPartConfig is active or a SKUPartValue with the same UniqueCode already exists.
     /// </exception>
-    Task<Result<SKUPartEntryViewModel>> UpdateSKUPartEntryAsync(UpdateSKUPartEntryRequest sKUPartEntry);
+    Task<ServiceResult<SKUPartEntryViewModel>> UpdateSKUPartEntryAsync(UpdateSKUPartEntryRequest sKUPartEntry);
 
     /// <summary>
     /// Deletes an existing SKUPartValue.
@@ -36,5 +36,5 @@ public interface ISKUPartEntryService
     /// <exception cref="InvalidOperationException">
     /// Thrown when the SKUPartValues is not found or the SKUPartConfig is active.
     /// </exception>
-    Task<Result<SKUPartEntryViewModel>> DeleteSKUPartEntryAsync(int id);
+    Task<ServiceResult<SKUPartEntryViewModel>> DeleteSKUPartEntryAsync(int id);
 }
