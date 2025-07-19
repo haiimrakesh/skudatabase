@@ -1,4 +1,5 @@
 
+using Microsoft.EntityFrameworkCore;
 using SKUApp.Data.EFCore.InMemory;
 using SKUApp.Data.EFCore.SqlServer;
 using SKUApp.Domain.DataContracts;
@@ -12,7 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<SqlServerDbContext>();
+builder.Services.AddDbContext<SqlServerDbContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 builder.Services.AddScoped<ISKUConfigService, SKUConfigService>();
 builder.Services.AddScoped<ISKUPartConfigService, SKUPartConfigService>();
 builder.Services.AddScoped<ISKUService, SKUService>();
