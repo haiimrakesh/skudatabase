@@ -2,8 +2,8 @@
 
 public static class ErrorKeys
 {   
-    public static string NameRequired { get; } = "InvalidEmail";
-    public static string NameInvalidLength { get; } = "InvalidPassword";
+    public static string NameRequired { get; } = "NameRequired";
+    public static string NameInvalidLength { get; } = "NameInvalidLength";
     public const string InvalidPhoneNumber = "InvalidPhoneNumber";
     public const string InvalidUsername = "InvalidUsername";
     public const string InvalidDate = "InvalidDate";

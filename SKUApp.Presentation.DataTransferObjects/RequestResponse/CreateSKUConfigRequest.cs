@@ -11,8 +11,8 @@ public class CreateSKUConfigRequest
     /// <remarks>
     /// The name must be between 3 and 25 characters.
     /// </remarks>
-    [Required(ErrorMessageResourceName = "NameRequired", ErrorMessageResourceType = typeof(SKUApp.Globalization.ErrorKeys))]
-    [StringLength(30, MinimumLength = 3, ErrorMessageResourceName = "NameInvalidLength", ErrorMessageResourceType = typeof(string))]
+    [Required(ErrorMessageResourceName = "NameRequired", ErrorMessageResourceType = typeof(SKUApp.Globalization.ErrorKeys ))]
+    [StringLength(30, MinimumLength = 3, ErrorMessageResourceName = "NameInvalidLength", ErrorMessageResourceType = typeof(SKUApp.Globalization.ErrorKeys))]
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
@@ -32,5 +32,5 @@ public class CreateSKUConfigRequest
     /// The length must be between 3 and 25.
     /// </remarks>
     [Range(3, 25, ErrorMessage = "Length must be between 3 and 25.")]
-    public int Length { get; set; }
+    public uint Length { get; set; }
 }
