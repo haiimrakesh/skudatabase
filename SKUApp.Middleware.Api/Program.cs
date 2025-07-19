@@ -1,5 +1,6 @@
 
 using SKUApp.Data.EFCore.InMemory;
+using SKUApp.Data.EFCore.SqlServer;
 using SKUApp.Domain.DataContracts;
 using SKUApp.Domain.ServiceContracts;
 using SKUApp.Domain.Services;
@@ -11,11 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<InMemoryDbContext>();
+builder.Services.AddDbContext<SqlServerDbContext>();
 builder.Services.AddScoped<ISKUConfigService, SKUConfigService>();
 builder.Services.AddScoped<ISKUPartConfigService, SKUPartConfigService>();
 builder.Services.AddScoped<ISKUService, SKUService>();
-builder.Services.AddScoped<ISKUUnitOfWork, InMemorySKUUnitOfWork>();
+builder.Services.AddScoped<ISKUUnitOfWork, SqlServerSKUUnitOfWork>();
 builder.Services.AddControllers()
     .AddXmlSerializerFormatters();
 

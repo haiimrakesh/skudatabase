@@ -6,8 +6,8 @@ namespace SKUApp.Data.EFCore.SqlServer
 {
     public class SqlServerDbContext : DbContext, ISKUDbContext
     {
-        public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options)
-            : base(options)
+        public SqlServerDbContext()
+            : base()
         {
             SKUs = Set<SKU>();
             SKUPartEntries = Set<SKUPartEntry>();
@@ -53,7 +53,7 @@ namespace SKUApp.Data.EFCore.SqlServer
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("YourConnectionStringHere");
+                optionsBuilder.UseSqlServer("Server=tcp:tsade-sqlserver.database.windows.net,1433;Initial Catalog=tsade_database;Persist Security Info=False;User ID=sqladmin;Password=One2025rk$;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 

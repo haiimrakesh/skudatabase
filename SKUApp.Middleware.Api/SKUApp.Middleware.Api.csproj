@@ -22,6 +22,7 @@
     <ProjectReference Include="..\SKUApp.Domain.ServiceContracts\SKUApp.Domain.ServiceContracts.csproj" />
     <ProjectReference Include="..\SKUApp.Common\SKUApp.Common.csproj" />
     <ProjectReference Include="..\SKUApp.Presentation.DataTransferObjects\SKUApp.Presentation.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\SKUApp.Data.EFCore.SqlServer\SKUApp.Data.EFCore.SqlServer.csproj" />
   </ItemGroup>
 
 </Project>

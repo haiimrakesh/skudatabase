@@ -4,6 +4,10 @@ GET {{SKUApp_Middleware_Api_HostAddress}}/api/skuconfig/1
 Accept: text/xml
 
 ###
+GET {{SKUApp_Middleware_Api_HostAddress}}/api/skuconfig
+Accept: text/xml
+
+###
 
 POST {{SKUApp_Middleware_Api_HostAddress}}/api/skuconfig
 Content-Type: application/json
@@ -11,5 +15,15 @@ Content-Type: application/json
 {
   "name": "first SKUConfig",
   "description": "first SKUConfig description",
+  "length": 25
+}
+
+###
+POST {{SKUApp_Middleware_Api_HostAddress}}/api/skuconfig
+Content-Type: application/json
+
+{
+  "name": "second SKUConfig",
+  "description": "second SKUConfig description",
   "length": 25
 }
