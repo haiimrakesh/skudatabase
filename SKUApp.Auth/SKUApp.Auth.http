@@ -1,0 +1,6 @@
+@SKUApp.Auth_HostAddress = http://localhost:5224
+
+GET {{SKUApp.Auth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

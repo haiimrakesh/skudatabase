@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Domain.DataContracts
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Data.EFCore.InMemory", "SKUApp.Data.EFCore.InMemory\SKUApp.Data.EFCore.InMemory.csproj", "{678AABB9-941B-413A-9C4F-4B014B0FCA9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Globalization", "SKUApp.Globalization\SKUApp.Globalization.csproj", "{F201A7F5-8CA3-4858-9673-0FA872EFE11E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Auth", "SKUApp.Auth\SKUApp.Auth.csproj", "{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +76,13 @@ Global
 		{678AABB9-941B-413A-9C4F-4B014B0FCA9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{678AABB9-941B-413A-9C4F-4B014B0FCA9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{678AABB9-941B-413A-9C4F-4B014B0FCA9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F201A7F5-8CA3-4858-9673-0FA872EFE11E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F201A7F5-8CA3-4858-9673-0FA872EFE11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F201A7F5-8CA3-4858-9673-0FA872EFE11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F201A7F5-8CA3-4858-9673-0FA872EFE11E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
