@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SKUApp.Domain.DataContracts;
-namespace SKUApp.Data.EFCore.InMemory;
+
+namespace SKUApp.Data.EFCore;
 
 public class GenericRepository<T> : IRepository<T> where T : class
 {

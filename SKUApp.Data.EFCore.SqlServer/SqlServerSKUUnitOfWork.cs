@@ -1,15 +1,15 @@
-
+﻿
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.DataContracts;
 
-namespace SKUApp.Data.EFCore.InMemory
+namespace SKUApp.Data.EFCore.SqlServer
 {
-    public class InMemorySKUUnitOfWork : ISKUUnitOfWork
+    public class SqlServerSKUUnitOfWork : ISKUUnitOfWork
     {
-        private readonly InMemoryDbContext _context;
+        private readonly SqlServerDbContext _context;
         private bool _disposed;
 
-        public InMemorySKUUnitOfWork(InMemoryDbContext context)
+        public SqlServerSKUUnitOfWork(SqlServerDbContext context)
         {
             _context = context;
             SKURepository = new BaseSKURepository(_context);

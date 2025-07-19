@@ -15,7 +15,7 @@ public class SKUConfigViewModel
     /// <summary>
     /// Gets or sets the length of the SKU configuration.
     /// </summary>
-    public int Length { get; set; }
+    public uint Length { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the SKU configuration.

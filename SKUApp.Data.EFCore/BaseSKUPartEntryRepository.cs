@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.DataContracts;
 
-namespace SKUApp.Data.EFCore.InMemory;
+namespace SKUApp.Data.EFCore;
 
-public class InMemorySKUPartEntryRepository : GenericRepository<SKUPartEntry>, ISKUPartEntryRepository
+public class BaseSKUPartEntryRepository : GenericRepository<SKUPartEntry>, ISKUPartEntryRepository
 {
-    public InMemorySKUPartEntryRepository(InMemoryDbContext context) : base(context)
+    public BaseSKUPartEntryRepository(ISKUDbContext context) : base(context)
     {
     }
     public async Task<IEnumerable<SKUPartEntry>> GetSKUPartEntriesByUniqueCode(string uniqueCode, int skyPartConfigId)

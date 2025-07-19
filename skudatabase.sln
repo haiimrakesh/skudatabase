@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Globalization", "SKU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Auth", "SKUApp.Auth\SKUApp.Auth.csproj", "{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Data.EFCore.SqlServer", "SKUApp.Data.EFCore.SqlServer\SKUApp.Data.EFCore.SqlServer.csproj", "{97B7CEED-283B-4B9F-A859-08B2EE02FE33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKUApp.Data.EFCore", "SKUApp.Data.EFCore\SKUApp.Data.EFCore.csproj", "{811311C4-2EEF-46EB-A7F6-62084CD34652}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,5 +88,13 @@ Global
 		{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46DA7233-E0C7-4CC5-9A20-A08B1B55944A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97B7CEED-283B-4B9F-A859-08B2EE02FE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97B7CEED-283B-4B9F-A859-08B2EE02FE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97B7CEED-283B-4B9F-A859-08B2EE02FE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97B7CEED-283B-4B9F-A859-08B2EE02FE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{811311C4-2EEF-46EB-A7F6-62084CD34652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811311C4-2EEF-46EB-A7F6-62084CD34652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811311C4-2EEF-46EB-A7F6-62084CD34652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811311C4-2EEF-46EB-A7F6-62084CD34652}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

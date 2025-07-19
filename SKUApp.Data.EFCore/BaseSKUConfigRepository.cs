@@ -3,11 +3,11 @@ using SKUApp.Domain.Entities;
 using SKUApp.Domain.DataContracts;
 
 
-namespace SKUApp.Data.EFCore.InMemory;
+namespace SKUApp.Data.EFCore;
 
-public class InMemorySKUConfigRepository : GenericRepository<SKUConfig>, ISKUConfigRepository
+public class BaseSKUConfigRepository : GenericRepository<SKUConfig>, ISKUConfigRepository
 {
-    public InMemorySKUConfigRepository(InMemoryDbContext context) : base(context)
+    public BaseSKUConfigRepository(ISKUDbContext context) : base(context)
     {
     }
 

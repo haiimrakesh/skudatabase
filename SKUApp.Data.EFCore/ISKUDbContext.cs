@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SKUApp.Domain.Entities;
 
-namespace SKUApp.Data.EFCore.InMemory;
+namespace SKUApp.Data.EFCore;
 /// <summary>
 /// Represents the database context interface for SKU-related entities.
 /// </summary>

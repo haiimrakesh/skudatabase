@@ -24,7 +24,7 @@ namespace SKUApp.Domain.Entities
         /// Gets or sets the length of the SKU configuration.
         /// </summary>
         [Range(3, 25, ErrorMessage = "Length must be between 3 and 25.")]
-        public int Length { get; set; }
+        public uint Length { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the SKU configuration.

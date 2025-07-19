@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using SKUApp.Domain.Entities;
 using SKUApp.Domain.DataContracts;
 
-namespace SKUApp.Data.EFCore.InMemory;
+namespace SKUApp.Data.EFCore;
 
-public class InMemorySKUConfigSequenceRepository : GenericRepository<SKUConfigSequence>, ISKUConfigSequenceRepository
+public class BaseSKUConfigSequenceRepository : GenericRepository<SKUConfigSequence>, ISKUConfigSequenceRepository
 {
-    public InMemorySKUConfigSequenceRepository(InMemoryDbContext context) : base(context)
+    public BaseSKUConfigSequenceRepository(ISKUDbContext context) : base(context)
     {
     }
 
