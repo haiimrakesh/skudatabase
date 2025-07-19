@@ -6,8 +6,8 @@ namespace SKUApp.Data.EFCore.SqlServer
 {
     public class SqlServerDbContext : DbContext, ISKUDbContext
     {
-        public SqlServerDbContext()
-            : base()
+        public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options)
+            : base(options)
         {
             SKUs = Set<SKU>();
             SKUPartEntries = Set<SKUPartEntry>();
