@@ -8,10 +8,10 @@ public class GenericRepository<T> : IRepository<T> where T : class
     protected readonly ISKUDbContext _context;
     protected readonly DbSet<T> _dbSet;
 
-    public GenericRepository(ISKUDbContext context)
+    public GenericRepository(ISKUDbContext context, DbSet<T> dbSet)
     {
         _context = context;
-        _dbSet = context.GetDbSet<T>()!;
+        _dbSet = dbSet;
     }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()

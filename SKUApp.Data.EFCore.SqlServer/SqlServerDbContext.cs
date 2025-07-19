@@ -39,16 +39,6 @@ namespace SKUApp.Data.EFCore.SqlServer
         public DbSet<SKUConfigSequence> SKUConfigSequences { get; set; }
         public DbSet<SKUPartConfig> SKUPartConfigs { get; set; }
 
-        IQueryable<SKU> ISKUDbContext.SKUs => SKUs;
-
-        IQueryable<SKUPartConfig> ISKUDbContext.SKUPartConfigs => SKUPartConfigs;
-
-        IQueryable<SKUPartEntry> ISKUDbContext.SKUPartEntries => SKUPartEntries;
-
-        IQueryable<SKUConfig> ISKUDbContext.SKUConfigs => SKUConfigs;
-
-        IQueryable<SKUConfigSequence> ISKUDbContext.SKUConfigSequences => SKUConfigSequences;
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

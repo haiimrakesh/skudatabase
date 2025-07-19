@@ -6,7 +6,7 @@ namespace SKUApp.Data.EFCore;
 
 public class BaseSKUConfigSequenceRepository : GenericRepository<SKUConfigSequence>, ISKUConfigSequenceRepository
 {
-    public BaseSKUConfigSequenceRepository(ISKUDbContext context) : base(context)
+    public BaseSKUConfigSequenceRepository(ISKUDbContext context) : base(context, context.SKUConfigSequences)
     {
     }
 

@@ -8,35 +8,29 @@ namespace SKUApp.Data.EFCore;
 public interface ISKUDbContext
 {
     /// <summary>
-    /// Gets the DbSet of entities of the given type.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    DbSet<T>? GetDbSet<T>() where T : class;
-    /// <summary>
     /// Gets or sets the DbSet of SKU entities.
     /// </summary>
-    IQueryable<SKU> SKUs { get; }
+    DbSet<SKU> SKUs { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUPartConfig entities.
     /// </summary>
-    IQueryable<SKUPartConfig> SKUPartConfigs { get; }
+    DbSet<SKUPartConfig> SKUPartConfigs { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUPartValues entities.
     /// </summary>
-    IQueryable<SKUPartEntry> SKUPartEntries { get; }
+    DbSet<SKUPartEntry> SKUPartEntries { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUConfig entities.
     /// </summary>
-    IQueryable<SKUConfig> SKUConfigs { get; }
+    DbSet<SKUConfig> SKUConfigs { get; }
 
     /// <summary>
     /// Gets or sets the DbSet of SKUConfigSequence entities.
     /// </summary>
-    IQueryable<SKUConfigSequence> SKUConfigSequences { get; }
+    DbSet<SKUConfigSequence> SKUConfigSequences { get; }
 
     /// <summary>
     /// Asynchronously saves all changes made in this context to the database.

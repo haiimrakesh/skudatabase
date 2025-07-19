@@ -6,7 +6,7 @@ namespace SKUApp.Data.EFCore;
 
 public class BaseSKUPartEntryRepository : GenericRepository<SKUPartEntry>, ISKUPartEntryRepository
 {
-    public BaseSKUPartEntryRepository(ISKUDbContext context) : base(context)
+    public BaseSKUPartEntryRepository(ISKUDbContext context) : base(context, context.SKUPartEntries)
     {
     }
     public async Task<IEnumerable<SKUPartEntry>> GetSKUPartEntriesByUniqueCode(string uniqueCode, int skyPartConfigId)
